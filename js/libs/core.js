@@ -489,9 +489,12 @@ Fliplet.FormBuilder = (function() {
           }).on('changeDate', function(e) {
             var value = moment(e.date).format(DATE_FORMAT);
 
+            console.log(e, value, $vm.value);
+
             $vm.value = value;
           });
 
+          console.log(this.value);
           $el.datepicker('setDate', this.value || new Date());
         });
       };

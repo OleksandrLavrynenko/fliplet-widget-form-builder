@@ -180,11 +180,13 @@ Fliplet.Widget.instance('form-builder', function(data) {
             case 'flDate':
               var regexDateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
               var regexISOFormat = /(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})[+-](\d{2})\:(\d{2})/;
-
+              console.log('cc', fieldData);
               if ((regexDateFormat.exec(fieldData) || regexISOFormat.exec(fieldData)) && !showCurrentDateTime) {
                 field.value = moment(fieldData).format('YYYY-MM-DD');
+                console.log('c', field.value);
               } else {
                 field.value = moment().get().format('YYYY-MM-DD');
+                console.log('c2', field.value);
               }
               break;
 
