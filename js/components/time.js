@@ -94,16 +94,15 @@ Fliplet.FormBuilder.field('time', {
         minutes = '0' + minutes;
       }
 
-      var formattedTime = moment(hours + ':' + minutes, 'HH:mm').format(this.localFormat);
-
-      this.updateValue(formattedTime);
+      this.updateValue(hours + ':' + minutes);
       this.empty = false;
     }
   },
   watch: {
     value: function(val) {
       if (!val) {
-        this.updateValue(moment().format(this.localFormat));
+        this.updateValue(moment().format('HH:mm'));
+        // this.updateValue(moment().format(this.localFormat));
       }
     }
   }

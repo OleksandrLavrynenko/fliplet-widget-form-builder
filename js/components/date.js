@@ -91,6 +91,8 @@ Fliplet.FormBuilder.field('date', {
       this.datePicker = $(this.$el).find('input.date-picker').datepicker(params).on('changeDate', this.changeDate);
       this.datePicker.datepicker('setDate', new Date(this.value) || new Date());
     }
+
+    $vm.$v.$reset();
   },
   watch: {
     value: function(val) {
