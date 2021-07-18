@@ -269,6 +269,10 @@ textarea.form-control {
   padding-left: 57px;
 }
 
+.form-group .input-group .form-control.reset-bg {
+  background-color: initial;
+}
+
 .text-helper {
   margin-top: 0.2em;
   font-size: 0.8em;

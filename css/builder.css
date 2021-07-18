@@ -618,6 +618,10 @@ nav>.btn {
   padding-left: 57px;
 }
 
+.form-group .input-group .form-control.reset-bg {
+  background-color: initial;
+}
+
 /* SIGNATURE FIELD */
 
 .field-signature {
