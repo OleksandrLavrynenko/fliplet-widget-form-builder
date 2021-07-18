@@ -4,6 +4,7 @@ Fliplet.FormBuilder = (function() {
   var eventHub = new Vue();
 
   var DATE_FORMAT = 'YYYY-MM-DD';
+  var LOCAL_FORMAT_DATE = moment.localeData().longDateFormat('L');
 
   Vue.use(window.vuelidate.default);
 
@@ -195,6 +196,10 @@ Fliplet.FormBuilder = (function() {
       if (!component.computed) {
         component.computed = {};
       }
+
+      component.computed.dateControl  = function() {
+        return moment(this.value || new Date()).format(LOCAL_FORMAT_DATE);
+      };
 
       component.computed._isFormField = function() {
         return this.showLabel || this.showLabel === undefined;
@@ -483,19 +488,23 @@ Fliplet.FormBuilder = (function() {
 
         $vm.$nextTick(function() {
           var $el = $(this.$el).find('input.date-picker').datepicker({
-            format: 'yyyy-mm-dd',
+            format: {
+              toDisplay: function(date) {
+                return moment(date || new Date()).format(LOCAL_FORMAT_DATE);
+              },
+              toValue: function(date) {
+                return date;
+              }
+            },
             todayHighlight: true,
             autoclose: true
           }).on('changeDate', function(e) {
             var value = moment(e.date).format(DATE_FORMAT);
 
-            console.log(e, value, $vm.value);
-
             $vm.value = value;
           });
 
-          console.log(this.value);
-          $el.datepicker('setDate', this.value || new Date());
+          $el.datepicker('setDate', new Date(this.value) || new Date());
         });
       };
 

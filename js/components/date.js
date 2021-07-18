@@ -1,6 +1,3 @@
-var DATE_FORMAT = 'YYYY-MM-DD';
-var LOCAL_DATE_FORMAT = moment.localeData().longDateFormat('L');
-
 Fliplet.FormBuilder.field('date', {
   name: 'Date picker',
   category: 'Text inputs',
@@ -27,7 +24,9 @@ Fliplet.FormBuilder.field('date', {
   data: function() {
     return {
       datePicker: null,
-      isInputFocused: false
+      isInputFocused: false,
+      dateFormat: 'YYYY-MM-DD',
+      localDateFormat: moment.localeData().longDateFormat('L')
     };
   },
   validations: function() {
@@ -44,76 +43,60 @@ Fliplet.FormBuilder.field('date', {
   computed: {
     isWeb: function() {
       return Fliplet.Env.get('platform') === 'web';
-    },
-    dateControl: {
-      get: function() {
-        return moment(this.value).format(LOCAL_DATE_FORMAT);
-      },
-      set: function(date) {
-        var dateFormat = moment(date).format(DATE_FORMAT);
-
-        this.updateValue(dateFormat);
-      }
     }
   },
   methods: {
-    updateValue: function(value) {
-      if (value) {
-        this.value = value;
+    changeDate: function(evt) {
+      this.updateValue(evt.date);
+    },
+    updateValue: function(date) {
+      if (date) {
+        this.value = moment(date).locale('en').format(this.dateFormat);
       }
 
       this.highlightError();
       this.$emit('_input', this.name, this.value);
     }
   },
-  mounted: function() {
-    var $vm = this;
-
-    if (Fliplet.Env.get('platform') === 'web') {
-      this.datePicker = $(this.$el).find('input.date-picker').datepicker({
-        format: {
-          toDisplay: function(date) {
-            return moment(date).format(LOCAL_DATE_FORMAT);
-          },
-          toValue: function(date) {
-            return date;
-          }
-        },
-        todayHighlight: true,
-        autoclose: true
-      }).on('changeDate', function(e) {
-        $vm.dateControl = moment(e.date).format(DATE_FORMAT);
-        $vm.updateValue();
-      });
-
-      this.datePicker.datepicker('setDate', this.dateControl || new Date());
-    }
-
+  created: function() {
     if (this.defaultValueSource !== 'default') {
       this.setValueFromDefaultSettings({ source: this.defaultValueSource, key: this.defaultValueKey });
     }
 
     if (!this.value || this.autofill === 'always') {
       // HTML5 date field wants YYYY-MM-DD format
-      this.dateControl = moment().format(DATE_FORMAT);
+      this.value = moment().locale('en').format(this.dateFormat);
       this.empty = false;
     }
 
-    console.log(this.value, this.dateControl);
-
     this.$emit('_input', this.name, this.value);
-    $vm.$v.$reset();
+  },
+  mounted: function() {
+    var $vm = this;
+
+    var params = {
+      format: {
+        toDisplay: function(date) {
+          return moment(date).format($vm.localDateFormat);
+        },
+        toValue: function(date) {
+          return date;
+        }
+      },
+      todayHighlight: true,
+      autoclose: true
+    };
+
+    if (Fliplet.Env.get('platform') === 'web') {
+      this.datePicker = $(this.$el).find('input.date-picker').datepicker(params).on('changeDate', this.changeDate);
+      this.datePicker.datepicker('setDate', new Date(this.value) || new Date());
+    }
   },
   watch: {
-    value: function(date) {
-      console.log(date);
-
-      if (!date) {
-        this.updateValue(moment().format(DATE_FORMAT));
+    value: function(val) {
+      if (!val) {
+        this.updateValue();
       }
-    },
-    dateControl: function(date) {
-      console.log(date);
     }
   }
 });

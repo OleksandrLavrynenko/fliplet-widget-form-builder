@@ -23,6 +23,7 @@ Fliplet.FormBuilder.field('time', {
   },
   data: function() {
     return {
+      localFormat: moment.localeData().longDateFormat('LT'),
       isInputFocused: false
     };
   },
@@ -93,14 +94,16 @@ Fliplet.FormBuilder.field('time', {
         minutes = '0' + minutes;
       }
 
-      this.updateValue(hours + ':' + minutes);
+      var formattedTime = moment(hours + ':' + minutes, 'HH:mm').format(this.localFormat);
+
+      this.updateValue(formattedTime);
       this.empty = false;
     }
   },
   watch: {
     value: function(val) {
       if (!val) {
-        this.updateValue(moment().format('HH:mm'));
+        this.updateValue(moment().format(this.localFormat));
       }
     }
   }

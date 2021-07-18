@@ -21,6 +21,7 @@
     </div>
 
     <input
+      readonly
       type="text"
       v-model.lazy="dateControl"
       v-on:change="updateValue()"
@@ -41,7 +42,7 @@
 
     <input
       type="date"
-      v-model.lazy="dateControl"
+      v-model.lazy="value"
       v-on:change="updateValue()"
       v-on:focus="isInputFocused = true"
       v-on:blur="isInputFocused = false"
