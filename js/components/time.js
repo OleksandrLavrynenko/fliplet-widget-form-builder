@@ -102,7 +102,6 @@ Fliplet.FormBuilder.field('time', {
     value: function(val) {
       if (!val) {
         this.updateValue(moment().format('HH:mm'));
-        // this.updateValue(moment().format(this.localFormat));
       }
     }
   }
