@@ -159,8 +159,24 @@ new Vue({
           allow: 'all',
           type: ['select']
         }
-      ]
+      ],
+      arrNonExistentColumns: []
     };
+  },
+  computed: {
+    hasRequiredFields: function() {
+      return this.fields.some(function(el) {
+        return !!el.required;
+      });
+    },
+    newColumnsName: {
+      get: function() {
+        return this.arrNonExistentColumns;
+      },
+      set: function(arr) {
+        this.getNewColumnsName(arr);
+      }
+    }
   },
   methods: {
     onSort: function(event) {
@@ -294,9 +310,10 @@ new Vue({
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
-      return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-        return $vm.updateDataSource();
-      });
+      return Fliplet.Widget.save(this.settings);
+      // return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
+      //   return $vm.updateDataSource();
+      // });
     },
     createDefaultBodyTemplate: function(fields) {
       // Creates default email template
@@ -502,6 +519,17 @@ new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
+    getDataSourceColumns: function() {
+      var $vm = this;
+
+      Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(ds) {
+        if (!ds.columns) {
+          return;
+        }
+
+        $vm.newColumnsName = ds.columns;
+      });
+    },
     updateDataSource: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.chain(this.fields)
@@ -555,6 +583,7 @@ new Vue({
           }
         }
 
+        // сохранение новой колонки
         return Fliplet.DataSources.update(dataSourceId, {
           columns: columns,
           hooks: ds.hooks
@@ -840,6 +869,22 @@ new Vue({
           $vm.useTemplate(blankTemplateId);
         }
       });
+    },
+    getNewColumnsName: function(arr) {
+      var fieldsName = _.chain(this.fields)
+        .filter(function(field) {
+          return field._submit !== false;
+        })
+        .map('name')
+        .value();
+
+      if (!arr.length) {
+        this.arrNonExistentColumns = fieldsName;
+      }
+
+      this.arrNonExistentColumns = _.filter(fieldsName, function(item) {
+        return !_.includes(arr, item);
+      });
     }
   },
   watch: {
@@ -964,13 +1009,16 @@ new Vue({
       if (value) {
         this.editor.setContent(this.settings.description);
       }
-    }
-  },
-  computed: {
-    hasRequiredFields: function() {
-      return this.fields.some(function(el) {
-        return !!el.required;
-      });
+    },
+    fields: {
+      deep: true,
+      immediate: true,
+      handler: function() {
+        this.getDataSourceColumns();
+      }
+    },
+    newColumnsName: function(val) {
+      console.log('newColumnsName', val);
     }
   },
   created: function() {
