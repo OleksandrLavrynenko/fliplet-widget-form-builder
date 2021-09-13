@@ -160,7 +160,7 @@ new Vue({
           type: ['select']
         }
       ],
-      arrNonExistentColumns: []
+      missingColumns: []
     };
   },
   computed: {
@@ -169,16 +169,16 @@ new Vue({
         return !!el.required;
       });
     },
-    newColumnsName: {
+    newColumnsNames: {
       get: function() {
-        return this.arrNonExistentColumns;
+        return this.missingColumns;
       },
       set: function(arr) {
         this.getNewColumnsName(arr);
       }
     },
     nonExistentColumns: function() {
-      return this.newColumnsName.join(', ');
+      return this.newColumnsNames.join(', ');
     }
   },
   methods: {
@@ -186,7 +186,7 @@ new Vue({
       var $vm = this;
 
       Fliplet.DataSources.update(this.settings.dataSourceId, {
-        newColumns: this.newColumnsName
+        newColumns: this.newColumnsNames
       }).then(function() {
         $vm.getDataSourceColumns();
       });
@@ -542,7 +542,7 @@ new Vue({
           return;
         }
 
-        $vm.newColumnsName = dataSource.columns;
+        $vm.newColumnsNames = dataSource.columns;
       });
     },
     updateDataSource: function() {
@@ -895,10 +895,10 @@ new Vue({
         .value();
 
       if (!arr.length) {
-        this.arrNonExistentColumns = fieldsName;
+        this.missingColumns = fieldsName;
       }
 
-      this.arrNonExistentColumns = _.filter(fieldsName, function(item) {
+      this.missingColumns = _.filter(fieldsName, function(item) {
         return !_.includes(arr, item);
       });
     }
