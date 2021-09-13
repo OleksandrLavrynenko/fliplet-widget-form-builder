@@ -176,9 +176,21 @@ new Vue({
       set: function(arr) {
         this.getNewColumnsName(arr);
       }
+    },
+    nonExistentColumns: function() {
+      return this.newColumnsName.join(', ');
     }
   },
   methods: {
+    generateColumns: function() {
+      var $vm = this;
+
+      Fliplet.DataSources.update(this.settings.dataSourceId, {
+        newColumns: this.newColumnsName
+      }).then(function() {
+        $vm.getDataSourceColumns();
+      });
+    },
     onSort: function(event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
     },
@@ -522,12 +534,15 @@ new Vue({
     getDataSourceColumns: function() {
       var $vm = this;
 
-      Fliplet.DataSources.getById($vm.settings.dataSourceId).then(function(ds) {
-        if (!ds.columns) {
+      Fliplet.DataSources.getById($vm.settings.dataSourceId, {
+        cache: false,
+        attributes: 'columns'
+      }).then(function(dataSource) {
+        if (!dataSource.columns) {
           return;
         }
 
-        $vm.newColumnsName = ds.columns;
+        $vm.newColumnsName = dataSource.columns;
       });
     },
     updateDataSource: function() {
@@ -583,7 +598,6 @@ new Vue({
           }
         }
 
-        // сохранение новой колонки
         return Fliplet.DataSources.update(dataSourceId, {
           columns: columns,
           hooks: ds.hooks
@@ -714,6 +728,8 @@ new Vue({
           if (event === 'dataSourceSelect') {
             $vm.settings.dataSourceId = dataSource.id;
           }
+
+          $vm.getDataSourceColumns();
         }
       });
 
@@ -1016,9 +1032,6 @@ new Vue({
       handler: function() {
         this.getDataSourceColumns();
       }
-    },
-    newColumnsName: function(val) {
-      console.log('newColumnsName', val);
     }
   },
   created: function() {
