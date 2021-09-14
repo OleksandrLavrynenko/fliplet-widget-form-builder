@@ -172,7 +172,7 @@ new Vue({
     missingColumns: function() {
       return this.newColumns.join(', ');
     },
-    notificationMessage: function() {
+    missingColumnsMessage: function() {
       if (this.newColumns.length === 1) {
         return '1 column missing in the data source.';
       }
@@ -538,11 +538,7 @@ new Vue({
         cache: false,
         attributes: 'columns'
       }).then(function(dataSource) {
-        if (!dataSource.columns) {
-          return [];
-        }
-
-        return dataSource.columns;
+        return dataSource.columns || [];
       });
     },
     updateDataSource: function() {
@@ -889,7 +885,7 @@ new Vue({
       });
     },
     setNewColumns: function(columns) {
-      var fieldsName = _.chain(this.fields)
+      var fieldNames = _.chain(this.fields)
         .filter(function(field) {
           return field._submit !== false;
         })
@@ -897,10 +893,10 @@ new Vue({
         .value();
 
       if (!columns.length) {
-        this.newColumns = fieldsName;
+        this.newColumns = fieldNames;
       }
 
-      this.newColumns = _.filter(fieldsName, function(item) {
+      this.newColumns = _.filter(fieldNames, function(item) {
         return !_.includes(columns, item);
       });
     }

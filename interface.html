@@ -126,9 +126,9 @@
             </div>
             <div class="form-group"  id="data-source-provider">
             </div>
-            <div v-if="notificationMessage && settings.dataSourceId" class="columns-notification">
+            <div v-if="missingColumnsMessage && settings.dataSourceId" class="columns-notification">
               <div class="alert alert-warning">
-                <p><b>\{{ notificationMessage }}</b></p>
+                <p><b>\{{ missingColumnsMessage }}</b></p>
                 <p>\{{ missingColumns }}</p>
                 <button type="button" class="btn btn-primary btn-block btn-generate-columns" @click="generateColumns">Generate columns</button>
               </div>
