@@ -160,7 +160,7 @@ new Vue({
           type: ['select']
         }
       ],
-      missingColumns: []
+      newColumns: []
     };
   },
   computed: {
@@ -169,16 +169,19 @@ new Vue({
         return !!el.required;
       });
     },
-    newColumnsNames: {
-      get: function() {
-        return this.missingColumns;
-      },
-      set: function(arr) {
-        this.getNewColumnsName(arr);
-      }
+    missingColumns: function() {
+      return this.newColumns.join(', ');
     },
-    nonExistentColumns: function() {
-      return this.newColumnsNames.join(', ');
+    missingColumnsNotification: function() {
+      if (this.newColumns.length === 1) {
+        return 1 + ' column missing in the data source.';
+      }
+
+      if (this.newColumns.length > 1) {
+        return this.newColumns.length + ' columns missing in the data source.';
+      }
+
+      return '';
     }
   },
   methods: {
@@ -323,9 +326,6 @@ new Vue({
       this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings);
-      // return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-      //   return $vm.updateDataSource();
-      // });
     },
     createDefaultBodyTemplate: function(fields) {
       // Creates default email template
@@ -542,7 +542,7 @@ new Vue({
           return;
         }
 
-        $vm.newColumnsNames = dataSource.columns;
+        $vm.getNewColumns(dataSource.columns);
       });
     },
     updateDataSource: function() {
@@ -886,7 +886,7 @@ new Vue({
         }
       });
     },
-    getNewColumnsName: function(arr) {
+    getNewColumns: function(arr) {
       var fieldsName = _.chain(this.fields)
         .filter(function(field) {
           return field._submit !== false;
@@ -898,7 +898,7 @@ new Vue({
         this.missingColumns = fieldsName;
       }
 
-      this.missingColumns = _.filter(fieldsName, function(item) {
+      this.newColumns = _.filter(fieldsName, function(item) {
         return !_.includes(arr, item);
       });
     }
