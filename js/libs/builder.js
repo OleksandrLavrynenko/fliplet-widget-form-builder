@@ -172,9 +172,9 @@ new Vue({
     missingColumns: function() {
       return this.newColumns.join(', ');
     },
-    missingColumnsNotification: function() {
+    notificationMessage: function() {
       if (this.newColumns.length === 1) {
-        return 1 + ' column missing in the data source.';
+        return '1 column missing in the data source.';
       }
 
       if (this.newColumns.length > 1) {
@@ -189,9 +189,11 @@ new Vue({
       var $vm = this;
 
       Fliplet.DataSources.update(this.settings.dataSourceId, {
-        newColumns: this.newColumnsNames
+        newColumns: this.newColumns
       }).then(function() {
-        $vm.getDataSourceColumns();
+        $vm.getDataSourceColumns().then(function(columns) {
+          $vm.setNewColumns(columns);
+        });
       });
     },
     onSort: function(event) {
@@ -532,17 +534,15 @@ new Vue({
       }
     },
     getDataSourceColumns: function() {
-      var $vm = this;
-
-      Fliplet.DataSources.getById($vm.settings.dataSourceId, {
+      return Fliplet.DataSources.getById(this.settings.dataSourceId, {
         cache: false,
         attributes: 'columns'
       }).then(function(dataSource) {
         if (!dataSource.columns) {
-          return;
+          return [];
         }
 
-        $vm.getNewColumns(dataSource.columns);
+        return dataSource.columns;
       });
     },
     updateDataSource: function() {
@@ -729,7 +729,9 @@ new Vue({
             $vm.settings.dataSourceId = dataSource.id;
           }
 
-          $vm.getDataSourceColumns();
+          $vm.getDataSourceColumns().then(function(columns) {
+            $vm.setNewColumns(columns);
+          });
         }
       });
 
@@ -886,7 +888,7 @@ new Vue({
         }
       });
     },
-    getNewColumns: function(arr) {
+    setNewColumns: function(columns) {
       var fieldsName = _.chain(this.fields)
         .filter(function(field) {
           return field._submit !== false;
@@ -894,12 +896,12 @@ new Vue({
         .map('name')
         .value();
 
-      if (!arr.length) {
-        this.missingColumns = fieldsName;
+      if (!columns.length) {
+        this.newColumns = fieldsName;
       }
 
       this.newColumns = _.filter(fieldsName, function(item) {
-        return !_.includes(arr, item);
+        return !_.includes(columns, item);
       });
     }
   },
@@ -1030,7 +1032,13 @@ new Vue({
       deep: true,
       immediate: true,
       handler: function() {
-        this.getDataSourceColumns();
+        if (this.settings.dataSourceId) {
+          var $vm = this;
+
+          this.getDataSourceColumns().then(function(columns) {
+            $vm.setNewColumns(columns);
+          });
+        }
       }
     }
   },
