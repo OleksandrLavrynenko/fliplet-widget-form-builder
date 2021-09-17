@@ -92,9 +92,7 @@ Fliplet.FormBuilder.field('time', {
     }
 
     if (!this.value || this.autofill === 'always') {
-      var now = new Date();
-
-      this.updateValue(TD(now, { format: 'LT' }));
+      this.updateValue(TD( new Date(), { format: 'LT' }));
       this.empty = false;
     }
   }

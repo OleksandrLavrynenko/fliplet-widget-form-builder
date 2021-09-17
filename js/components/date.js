@@ -77,9 +77,7 @@ Fliplet.FormBuilder.field('date', {
 
     if (!this.value || this.autofill === 'always') {
       // HTML5 date field wants YYYY-MM-DD format
-      var now = new Date();
-
-      this.value = TD(now, { format: 'L' });
+      this.value = TD(new Date(), { format: 'L' });
       this.empty = false;
     }
 
@@ -96,9 +94,7 @@ Fliplet.FormBuilder.field('date', {
   watch: {
     value: function(val) {
       if (!val && this.autofill !== 'empty') {
-        var now = new Date();
-
-        this.updateValue(TD(now, { format: 'L' }));
+        this.updateValue(TD(new Date(), { format: 'L' }));
       }
 
       this.highlightError();
