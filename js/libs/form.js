@@ -804,7 +804,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
       $(selector).removeClass('is-loading');
 
-      if (!data.offline) {
+      if (data.offline) {
         Fliplet.Navigator.onOnline(function() {
           $vm.isOffline = false;
           $vm.blockScreen = false;

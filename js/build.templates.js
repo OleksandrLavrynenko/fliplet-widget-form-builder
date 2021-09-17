@@ -49,7 +49,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.file.instruction",{"name":"T","hash":{},"data":data}))
     + "</span>\r\n    <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" :data-folder-id=\"mediaFolderId\" class=\"input-file selectfile\" v-on:change=\"updateValue()\" multiple tabindex=\"-1\">\r\n  </label>\r\n  <p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.errors.required",{"name":"T","hash":{},"data":data}))
-    + "</p>\r\n</div>\r\n ";
+    + "</p>\r\n</div>\r\n";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {

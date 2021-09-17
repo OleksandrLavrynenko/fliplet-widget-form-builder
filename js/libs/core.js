@@ -500,6 +500,8 @@ Fliplet.FormBuilder = (function() {
           }).on('changeDate', function(e) {
             var value = moment(e.date).format(DATE_FORMAT);
 
+            console.log(value);
+
             $vm.value = value;
           });
 
