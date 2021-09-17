@@ -4,21 +4,25 @@ Fliplet.FormBuilder.field('select', {
   props: {
     options: {
       type: Array,
-      default: [
-        {
-          label: 'Option 1'
-        },
-        {
-          label: 'Option 2'
-        }
-      ]
+      default: function() {
+        return [
+          {
+            label: T('widgets.formBuilder.dataSource.select.optionsDefault.option1')
+          },
+          {
+            label: T('widgets.formBuilder.dataSource.select.optionsDefault.option2')
+          }
+        ];
+      }
     },
     source: {
       type: String
     },
     placeholder: {
       type: String,
-      default: '-- Select one'
+      default: function() {
+        return T('widgets.formBuilder.dataSource.select.placeholder');
+      }
     },
     description: {
       type: String

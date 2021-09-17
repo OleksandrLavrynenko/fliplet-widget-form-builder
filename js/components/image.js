@@ -1,6 +1,7 @@
 /* global Camera, addThumbnailToCanvas, loadImage */
 
 Fliplet.FormBuilder.field('image', {
+  i18n: Fliplet.Locale.plugins.vue(),
   name: 'Image upload',
   category: 'Files',
   props: {
@@ -110,7 +111,7 @@ Fliplet.FormBuilder.field('image', {
       if (!this.value.length) {
         $(this.$refs.imageInput).parents('.form-group').addClass('has-error');
 
-        return Promise.reject('Please fill in required fields.');
+        return Promise.reject(T('widgets.formBuilder.dataSource.errors.requiredField'));
       }
     },
     validateValue: function() {
@@ -138,14 +139,21 @@ Fliplet.FormBuilder.field('image', {
       return new Promise(function(resolve) {
         $vm.boundingRect = fileInput.getBoundingClientRect();
 
-        var buttonLabels = ['Take Photo', 'Choose Existing Photo', 'Cancel'];
+        var buttonLabels = [
+          T('widgets.formBuilder.dataSource.image.actionsLabel.takePhoto'),
+          T('widgets.formBuilder.dataSource.image.actionsLabel.choosePhoto'),
+          T('widgets.formBuilder.dataSource.image.actionsLabel.cancel')
+        ];
 
         if (Modernizr.windows) {
-          buttonLabels = ['Take Photo', 'Choose Existing Photo'];
+          buttonLabels = [
+            T('widgets.formBuilder.dataSource.image.actionsLabel.takePhoto'),
+            T('widgets.formBuilder.dataSource.image.actionsLabel.choosePhoto')
+          ];
         }
 
         navigator.notification.confirm(
-          'How do you want to choose your image?',
+          T('widgets.formBuilder.dataSource.image.confirmMessage'),
           function onSelectedImageMethod(button) {
             document.body.focus();
 
@@ -163,7 +171,8 @@ Fliplet.FormBuilder.field('image', {
                 return;
             }
           },
-          'Choose Image', buttonLabels
+          T('widgets.formBuilder.dataSource.image.confirmLabel'),
+          buttonLabels
         );
       });
     },
