@@ -15,14 +15,16 @@ Fliplet.FormBuilder.field('checkbox', {
     },
     options: {
       type: Array,
-      default: [
-        {
-          label: 'Option 1'
-        },
-        {
-          label: 'Option 2'
-        }
-      ]
+      default: function() {
+        return [
+          {
+            label: T('widgets.formBuilder.dataSource.checkbox.optionsDefault.option1')
+          },
+          {
+            label: T('widgets.formBuilder.dataSource.checkbox.optionsDefault.option2')
+          }
+        ];
+      }
     }
   },
   validations: function() {
