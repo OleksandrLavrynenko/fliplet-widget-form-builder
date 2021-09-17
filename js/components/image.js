@@ -111,7 +111,7 @@ Fliplet.FormBuilder.field('image', {
       if (!this.value.length) {
         $(this.$refs.imageInput).parents('.form-group').addClass('has-error');
 
-        return Promise.reject(T('widgets.formBuilder.dataSource.errors.requiredField'));
+        return Promise.reject(T('widgets.formBuilder.dataSource.image.required'));
       }
     },
     validateValue: function() {

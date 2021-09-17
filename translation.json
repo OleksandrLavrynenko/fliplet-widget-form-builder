@@ -24,7 +24,8 @@
                         "cancel": "Cancel"
                     },
                     "confirmMessage": "How do you want to choose your image?",
-                    "confirmLabel": "Choose Image"
+                    "confirmLabel": "Choose Image",
+                    "required": "Field is required."
                 },
                 "interface": {
                     "hidden": "Hidden"
@@ -33,15 +34,15 @@
                     "maxLengthInvalid": "This field only accept up to 15 digits.",
                     "positiveDigitsInvalid": "Only positive digits are allowed.",
                     "integerDigitsInvalid": "Only integer digits are allowed.",
-                    "decimalInvalid": "Only digits or {{msg}} digits after point are allowed."
+                    "decimalInvalid": "Only digits or {{decimals}} digits after point are allowed."
                 },
                 "paragraph": {
-                    "valueDefault": "Paragraph"
+                    "defaultValue": "Paragraph"
                 },
                 "password": {
                     "confirmPassword": "Confirm password",
                     "mismatch": "Password confirmation does not match password.",
-                    "fieldPlaceholder": "A password will be automatically generated"
+                    "placeholder": "A password will be automatically generated"
                 },
                 "checkbox": {
                     "optionsDefault": {
@@ -56,6 +57,7 @@
                     }
                 },
                 "select": {
+                    "name": "Dropdown (single-select)",
                     "placeholder": "-- Select one",
                     "optionsDefault": {
                         "option1": "Option 1",
@@ -66,14 +68,15 @@
                     "instruction": "Phone could contain <b>; , . ( ) - + SPACE * #</b> and numbers."
                 },
                 "title": {
-                    "valueDefault": "Title"
+                    "defaultValue": "Title"
                 },
                 "url": {
                     "urlInvalid": "The input is not a valid URL."
                 },
                 "errors": {
-                    "fieldIsRequired": "Field is required.",
-                    "requiredField": "Please fill in required fields."
+                    "required": "Please fill in required fields.",
+                    "updateDataSource": "The data can only be updated when connected to the internet.",
+                    "submitForm": "This form can only be submitted when connected to the internet."
                 }
             }
         }

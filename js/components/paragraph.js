@@ -11,7 +11,7 @@ Fliplet.FormBuilder.field('paragraph', {
     value: {
       type: String,
       default: function() {
-        return T('widgets.formBuilder.dataSource.paragraph.valueDefault');
+        return T('widgets.formBuilder.dataSource.paragraph.defaultValue');
       }
     },
     canHide: {

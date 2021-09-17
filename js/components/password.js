@@ -63,7 +63,7 @@ Fliplet.FormBuilder.field('password', {
   },
   computed: {
     fieldPlaceholder: function() {
-      return this.autogenerate ? T('widgets.formBuilder.dataSource.password.fieldPlaceholder') : this.placeholder;
+      return this.autogenerate ? T('widgets.formBuilder.dataSource.password.placeholder') : this.placeholder;
     }
   },
   mounted: function() {

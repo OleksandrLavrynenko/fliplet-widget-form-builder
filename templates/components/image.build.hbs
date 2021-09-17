@@ -24,5 +24,5 @@
     <input multiple type="file" ref="imageInput" :id="name" :name="name" class="input-file selectfile" accept="image/gif, image/jpg, image/jpeg, image/tiff, image/png" :data-folder-id="mediaFolderId" v-on:click="onFileClick" v-on:change="onFileChange" tabindex="-1">
   </label>
   <p class="text-danger" v-if="hasCorruptedImage">{{T "widgets.formBuilder.dataSource.image.fileInvalid"}}</p>
-  <p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.errors.fieldIsRequired"}}</p>
+  <p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.errors.required"}}</p>
 </div>
