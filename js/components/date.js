@@ -1,5 +1,3 @@
-var DATE_FORMAT = 'YYYY-MM-DD';
-
 Fliplet.FormBuilder.field('date', {
   name: 'Date picker',
   category: 'Text inputs',
@@ -66,7 +64,7 @@ Fliplet.FormBuilder.field('date', {
       // Attach changeDate listener after initial value is assigned
       this.datePicker.on('changeDate', function(e) {
         if (e.date) {
-          $vm.value = moment(e.date).format(DATE_FORMAT);
+          $vm.value = TD(e.date, { format: 'L' });
         }
 
         $vm.updateValue();
@@ -79,7 +77,7 @@ Fliplet.FormBuilder.field('date', {
 
     if (!this.value || this.autofill === 'always') {
       // HTML5 date field wants YYYY-MM-DD format
-      this.value = moment().format(DATE_FORMAT);
+      this.value = TD(new Date(), { format: 'L' });
       this.empty = false;
     }
 
@@ -96,7 +94,7 @@ Fliplet.FormBuilder.field('date', {
   watch: {
     value: function(val) {
       if (!val && this.autofill !== 'empty') {
-        this.updateValue(moment().format(DATE_FORMAT));
+        this.updateValue(TD(new Date(), { format: 'L' }));
       }
 
       this.highlightError();

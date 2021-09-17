@@ -10,7 +10,9 @@ Fliplet.FormBuilder.field('title', {
     },
     value: {
       type: String,
-      default: 'Title'
+      default: function() {
+        return T('widgets.formBuilder.dataSource.title.valueDefault');
+      }
     },
     canHide: {
       type: Boolean,
