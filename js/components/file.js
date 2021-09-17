@@ -92,7 +92,6 @@ Fliplet.FormBuilder.field('file', {
         fields: ['name', 'url', 'metadata', 'createdAt']
       }).then(function(files) {
         var newFiles = _.map(files, function(file) {
-          console.log(file);
           file.size = file.metadata.size;
 
           return file;

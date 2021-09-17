@@ -140,15 +140,15 @@ Fliplet.FormBuilder.field('image', {
         $vm.boundingRect = fileInput.getBoundingClientRect();
 
         var buttonLabels = [
-          T('widgets.formBuilder.dataSource.image.actionsLabel.takePhoto'),
-          T('widgets.formBuilder.dataSource.image.actionsLabel.choosePhoto'),
-          T('widgets.formBuilder.dataSource.image.actionsLabel.cancel')
+          T('widgets.formBuilder.dataSource.image.actionLabels.takePhoto'),
+          T('widgets.formBuilder.dataSource.image.actionLabels.choosePhoto'),
+          T('widgets.formBuilder.dataSource.image.actionLabels.cancel')
         ];
 
         if (Modernizr.windows) {
           buttonLabels = [
-            T('widgets.formBuilder.dataSource.image.actionsLabel.takePhoto'),
-            T('widgets.formBuilder.dataSource.image.actionsLabel.choosePhoto')
+            T('widgets.formBuilder.dataSource.image.actionLabels.takePhoto'),
+            T('widgets.formBuilder.dataSource.image.actionLabels.choosePhoto')
           ];
         }
 

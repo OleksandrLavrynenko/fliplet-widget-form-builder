@@ -44,9 +44,6 @@ Fliplet.FormBuilder.field('date', {
     },
     isApplyCurrentDateField: function() {
       return this.autofill === 'always' || this.autofill === 'default';
-    },
-    now: function() {
-      return new Date();
     }
   },
   mounted: function() {
@@ -80,7 +77,9 @@ Fliplet.FormBuilder.field('date', {
 
     if (!this.value || this.autofill === 'always') {
       // HTML5 date field wants YYYY-MM-DD format
-      this.value = TD(this.now, { format: 'L' });
+      var now = new Date();
+
+      this.value = TD(now, { format: 'L' });
       this.empty = false;
     }
 
@@ -97,7 +96,9 @@ Fliplet.FormBuilder.field('date', {
   watch: {
     value: function(val) {
       if (!val && this.autofill !== 'empty') {
-        this.updateValue(TD(this.now, { format: 'L' }));
+        var now = new Date();
+
+        this.updateValue(TD(now, { format: 'L' }));
       }
 
       this.highlightError();

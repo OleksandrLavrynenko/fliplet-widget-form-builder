@@ -18,7 +18,7 @@
                 "image": {
                     "instruction": "Choose image",
                     "fileInvalid": "The uploaded file is not a valid image. Please try again.",
-                    "actionsLabel": {
+                    "actionLabels": {
                         "takePhoto": "Take Photo",
                         "choosePhoto": "Choose Existing Photo",
                         "cancel": "Cancel"
