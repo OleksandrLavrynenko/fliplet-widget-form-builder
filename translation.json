@@ -1,0 +1,84 @@
+{
+    "widgets": {
+        "formBuilder": {
+            "dataSource": {
+                "loading": "Loading...",
+                "sending": {
+                    "requiredFields": "* Required fields"
+                },
+                "email": {
+                    "emailInvalid": "The input is not a valid email address."
+                },
+                "file": {
+                    "updated": "Uploaded:",
+                    "uploaded": "Uploaded:",
+                    "sizeInfo": "To be uploaded",
+                    "instruction": "Choose file"
+                },
+                "image": {
+                    "instruction": "Choose image",
+                    "fileInvalid": "The uploaded file is not a valid image. Please try again.",
+                    "actionLabels": {
+                        "takePhoto": "Take Photo",
+                        "choosePhoto": "Choose Existing Photo",
+                        "cancel": "Cancel"
+                    },
+                    "confirmMessage": "How do you want to choose your image?",
+                    "confirmLabel": "Choose Image",
+                    "required": "Field is required."
+                },
+                "interface": {
+                    "hidden": "Hidden"
+                },
+                "number": {
+                    "maxLengthInvalid": "This field only accept up to 15 digits.",
+                    "positiveDigitsInvalid": "Only positive digits are allowed.",
+                    "integerDigitsInvalid": "Only integer digits are allowed.",
+                    "decimalInvalid": "Only digits or {{decimals}} digits after point are allowed."
+                },
+                "paragraph": {
+                    "defaultValue": "Paragraph"
+                },
+                "password": {
+                    "confirmPassword": "Confirm password",
+                    "mismatch": "Password confirmation does not match password.",
+                    "placeholder": "A password will be automatically generated"
+                },
+                "checkbox": {
+                    "optionsDefault": {
+                        "option1": "Option 1",
+                        "option2": "Option 2"
+                    }
+                },
+                "radio": {
+                    "optionsDefault": {
+                        "option1": "Option 1",
+                        "option2": "Option 2"
+                    }
+                },
+                "select": {
+                    "name": "Dropdown (single-select)",
+                    "placeholder": "-- Select one",
+                    "optionsDefault": {
+                        "option1": "Option 1",
+                        "option2": "Option 2"
+                    }
+                },
+                "telephone": {
+                    "instruction": "Phone could contain <b>; , . ( ) - + SPACE * #</b> and numbers."
+                },
+                "title": {
+                    "defaultValue": "Title"
+                },
+                "url": {
+                    "urlInvalid": "The input is not a valid URL."
+                },
+                "errors": {
+                    "required": "Please fill in required fields.",
+                    "updateDataSource": "The data can only be updated when connected to the internet.",
+                    "submitForm": "This form can only be submitted when connected to the internet."
+                }
+            }
+        }
+    }
+}
