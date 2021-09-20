@@ -4,7 +4,7 @@
     <li class="file-item" v-for="(file, index) in value" @click="onFileItemClick(file.url)">
       <div class="file-title">\{{ file.name }}</div>
       <div class="file-info">
-        <span class="file-info-uploaded">{{T "widgets.formBuilder.dataSource.file.updated"}} <strong>\{{ showLocalDateFormat(file.createdAt) }}</strong></span>
+        <span class="file-info-uploaded">{{T "widgets.formBuilder.dataSource.file.uploaded"}} <strong>\{{ showLocalDateFormat(file.createdAt) }}</strong></span>
         <span v-show="file.size" class="file-info-size">&ndash; <strong>\{{ humanFileSize(file.size) }}</strong></span>
       </div>
       <div class="file-icon">
@@ -22,7 +22,7 @@
           <div class="file-info">
             <span class="file-info-uploaded">
               <span v-if="file.createdAt">{{T "widgets.formBuilder.dataSource.file.uploaded"}} <strong>\{{ showLocalDateFormat(file.createdAt) }}</strong></span>
-              <span v-else>{{T "widgets.formBuilder.dataSource.file.sizeInfo"}}</span>
+              <span v-else>{{T "widgets.formBuilder.dataSource.file.uploadMessage"}}</span>
             </span>
             <span v-show="file.size" class="file-info-size">&ndash; <strong>\{{ humanFileSize(file.size) }}</strong></span>
           </div>

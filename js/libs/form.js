@@ -813,8 +813,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
           $vm.isOfflineMessage = data.dataStore && data.dataStore.indexOf('editDataSource') > -1 ?
-            T('widgets.formBuilder.dataSource.errors.updateDataSource') :
-            T('widgets.formBuilder.dataSource.errors.submitForm');
+            T('widgets.formBuilder.dataSource.errors.offlineDataError') :
+            T('widgets.formBuilder.dataSource.errors.offlineFormError');
 
           if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
             $vm.blockScreen = true;
