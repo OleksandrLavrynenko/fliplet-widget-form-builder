@@ -18,10 +18,10 @@ Fliplet.FormBuilder.field('checkbox', {
       default: function() {
         return [
           {
-            label: T('widgets.formBuilder.dataSource.checkbox.defaultOptions.option1')
+            label: T('widgets.formBuilder.dataSource.checkbox.optionsDefault.option1')
           },
           {
-            label: T('widgets.formBuilder.dataSource.checkbox.defaultOptions.option2')
+            label: T('widgets.formBuilder.dataSource.checkbox.optionsDefault.option2')
           }
         ];
       }

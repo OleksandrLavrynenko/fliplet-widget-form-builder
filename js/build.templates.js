@@ -22,7 +22,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.email"] = Handlebar
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div v-if=\"description\" class=\"help-block description\">{{ description }}</div>\r\n<template v-if=\"readonly\">\r\n  <p class=\"form-control-static\">{{ value }}</p>\r\n  <input\r\n    type=\"hidden\"\r\n    class=\"form-control\"\r\n    v-model.trim.lazy=\"value\"\r\n    v-on:change=\"updateValue()\"\r\n    v-on:input=\"onInput($event)\"\r\n    :name=\"name\"\r\n    :id=\"name\"\r\n    :placeholder=\"placeholder\"\r\n    autocomplete=\"new-password\"\r\n  />\r\n</template>\r\n<input v-else\r\n  type=\"email\"\r\n  class=\"form-control focus-outline\"\r\n  v-model.trim.lazy=\"value\"\r\n  v-on:change=\"updateValue()\"\r\n  v-on:input=\"onInput($event)\"\r\n  :name=\"name\"\r\n  :id=\"name\"\r\n  :placeholder=\"placeholder\"\r\n  autocomplete=\"new-password\"\r\n  tabindex=\"0\"\r\n/>\r\n<p class=\"text-danger\" v-if=\"$v.value.email === false && $v.value.$dirty\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.email.invalid",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.email.emailInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.errors.required",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n";
@@ -49,7 +49,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.file"] = Handlebars
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.file.instruction",{"name":"T","hash":{},"data":data}))
     + "</span>\r\n    <input type=\"file\" ref=\"fileInput\" :id=\"name\" :name=\"name\" :data-folder-id=\"mediaFolderId\" class=\"input-file selectfile\" v-on:change=\"updateValue()\" multiple tabindex=\"-1\">\r\n  </label>\r\n  <p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.errors.required",{"name":"T","hash":{},"data":data}))
-    + "</p>\r\n</div>\r\n";
+    + "</p>\r\n</div>\r\n ";
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.horizontalRule"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -62,7 +62,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.image"] = Handlebar
   return "<div v-if=\"description\" class=\"help-block description\">{{ description }}</div>\r\n\r\n<div v-if=\"readonly\" class=\"fileUpload\" :class=\"{ 'fileUpload-padding-top': value.length }\">\r\n  <div class=\"row\">\r\n    <div v-for=\"(image, index) in value\" @click=\"onImageClick(index)\" class=\"multiple-images-item\">\r\n      <div class=\"image-item\" :style=\"{ 'background-image': 'url(' + image + ')' }\"></div>\r\n    </div>\r\n  </div>\r\n  <input multiple type=\"hidden\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :data-folder-id=\"mediaFolderId\">\r\n</div>\r\n\r\n<div v-else class=\"fileUpload\" :class=\"{ 'fileUpload-padding-top': value.length }\">\r\n  <div class=\"row\">\r\n    <div v-for=\"(image, index) in value\">\r\n      <div class=\"canvas-holder\">\r\n        <canvas ref=\"canvas\"></canvas>\r\n        <button class=\"canvas-remove\" type=\"button\" v-on:click=\"removeImage(index)\"></button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <label class=\"btn btn-primary focus-outline\" tabindex=\"0\" v-on:keydown.space.prevent=\"openFileDialog()\">\r\n    <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\r\n    <span>"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.image.instruction",{"name":"T","hash":{},"data":data}))
     + "</span>\r\n    <input multiple type=\"file\" ref=\"imageInput\" :id=\"name\" :name=\"name\" class=\"input-file selectfile\" accept=\"image/gif, image/jpg, image/jpeg, image/tiff, image/png\" :data-folder-id=\"mediaFolderId\" v-on:click=\"onFileClick\" v-on:change=\"onFileChange\" tabindex=\"-1\">\r\n  </label>\r\n  <p class=\"text-danger\" v-if=\"hasCorruptedImage\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.image.invalid",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.image.fileInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n  <p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.errors.required",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n</div>\r\n";
@@ -88,13 +88,13 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.number"] = Handleba
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div v-if=\"description\" class=\"help-block description\">{{ description }}</div>\r\n\r\n<template v-if=\"readonly\">\r\n  <p class=\"form-control-static\">{{ value }}</p>\r\n  <input\r\n  type=\"hidden\"\r\n  class=\"form-control\"\r\n  v-model.trim.lazy=\"value\"\r\n  v-on:change=\"updateValue()\"\r\n  v-on:input=\"onInput($event)\"\r\n  :name=\"name\"\r\n  :id=\"name\"\r\n  :placeholder=\"placeholder\"\r\n  />\r\n</template>\r\n\r\n<input v-else\r\n  type=\"text\"\r\n  class=\"form-control focus-outline\"\r\n  v-model.trim.lazy=\"value\"\r\n  v-on:change=\"updateValue()\"\r\n  v-on:input=\"onInput($event)\"\r\n  :name=\"name\"\r\n  :id=\"name\"\r\n  :placeholder=\"placeholder\"\r\n  tabindex=\"0\"\r\n/>\r\n<p class=\"text-danger\" v-if=\"$v.value.maxLength === false && $v.value.$dirty\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.invalidLength",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.sizeInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.errors.required",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.positive === false && $v.value.$dirty\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.onlyPositiveDigitsAllowed",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.positiveDigitsInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.integer === false && $v.value.$dirty\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.onlyIntegerDigitsAllowed",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.integerDigitsInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.decimal === false && $v.value.$dirty\">{{$t(\"widgets.formBuilder.dataSource.number.decimalInvalid\", {decimals: decimals})}}</p>\r\n";
 },"useData":true});
 
@@ -106,7 +106,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.password"] = Handle
     var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3=container.escapeExpression;
 
   return "<div v-if=\"description\" class=\"help-block description\">{{ description }}</div>\r\n<input\r\n  type=\"password\"\r\n  class=\"form-control focus-outline\"\r\n  :readonly=\"autogenerate\"\r\n  autocomplete=\"new-password\"\r\n  v-on:change=\"updateValue()\"\r\n  v-on:input=\"onInput($event)\"\r\n  v-model.lazy=\"value\"\r\n  :name=\"name\"\r\n  :id=\"name\"\r\n  :placeholder=\"fieldPlaceholder\"\r\n  tabindex=\"0\"\r\n/>\r\n<p class=\"text-danger\" v-if=\"$v.value.required === false && $v.value.$dirty\">"
-    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.password.required",{"name":"T","hash":{},"data":data}))
+    + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.password.sizeInvalid",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n\r\n<div class=\"form-group row clearfix\" v-if=\"confirm\">\r\n  <br />\r\n  <div class=\"col-xs-12\">\r\n    <label class=\"control-label\" for=\"confirmPassword\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.password.confirmPassword",{"name":"T","hash":{},"data":data}))
     + "\r\n      <template v-if=\"required\">\r\n        <span class=\"required-info\">*</span>\r\n      </template>\r\n    </label>\r\n  </div>\r\n  <div class=\"col-xs-12\">\r\n    <input\r\n      type=\"password\"\r\n      class=\"form-control focus-outline\"\r\n      v-model.lazy=\"passwordConfirmation\"\r\n      id=\"confirmPassword\"\r\n      autocomplete=\"new-password\"\r\n      v-on:change=\"updatePasswordConfirmation()\"\r\n      v-on:input=\"onPasswordConfirmationInput($event)\"\r\n      tabindex=\"0\"\r\n    />\r\n    <p class=\"text-danger\" v-if=\"$v.passwordConfirmation.sameAs === false && $v.passwordConfirmation.$dirty\">"

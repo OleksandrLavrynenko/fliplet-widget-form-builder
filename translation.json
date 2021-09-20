@@ -7,7 +7,7 @@
                     "requiredFields": "* Required fields"
                 },
                 "email": {
-                    "invalid": "The input is not a valid email address."
+                    "emailInvalid": "The input is not a valid email address."
                 },
                 "file": {
                     "updated": "Uploaded:",
@@ -17,7 +17,7 @@
                 },
                 "image": {
                     "instruction": "Choose image",
-                    "invalid": "The uploaded file is not a valid image. Please try again.",
+                    "fileInvalid": "The uploaded file is not a valid image. Please try again.",
                     "actionLabels": {
                         "takePhoto": "Take Photo",
                         "choosePhoto": "Choose Existing Photo",
@@ -31,9 +31,9 @@
                     "hidden": "Hidden"
                 },
                 "number": {
-                    "invalidLength": "This field only accept up to 15 digits.",
-                    "onlyPositiveDigitsAllowed": "Only positive digits are allowed.",
-                    "onlyIntegerDigitsAllowed": "Only integer digits are allowed.",
+                    "maxLengthInvalid": "This field only accept up to 15 digits.",
+                    "positiveDigitsInvalid": "Only positive digits are allowed.",
+                    "integerDigitsInvalid": "Only integer digits are allowed.",
                     "decimalInvalid": "Only digits or {{decimals}} digits after point are allowed."
                 },
                 "paragraph": {
@@ -42,17 +42,16 @@
                 "password": {
                     "confirmPassword": "Confirm password",
                     "mismatch": "Password confirmation does not match password.",
-                    "placeholder": "A password will be automatically generated",
-                    "required": "Field is required."
+                    "placeholder": "A password will be automatically generated"
                 },
                 "checkbox": {
-                    "defaultOptions": {
+                    "optionsDefault": {
                         "option1": "Option 1",
                         "option2": "Option 2"
                     }
                 },
                 "radio": {
-                    "defaultOptions": {
+                    "optionsDefault": {
                         "option1": "Option 1",
                         "option2": "Option 2"
                     }
@@ -60,7 +59,7 @@
                 "select": {
                     "name": "Dropdown (single-select)",
                     "placeholder": "-- Select one",
-                    "defaultOptions": {
+                    "optionsDefault": {
                         "option1": "Option 1",
                         "option2": "Option 2"
                     }
