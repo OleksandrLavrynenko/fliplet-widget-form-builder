@@ -25,5 +25,5 @@
   :placeholder="placeholder"
   tabindex="0"
 />
-<p class="text-danger" v-if="$v.value.url === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.url.urlInvalid"}}</p>
+<p class="text-danger" v-if="$v.value.url === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.url.invalid"}}</p>
 <p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.errors.required"}}</p>

@@ -7,10 +7,10 @@ Fliplet.FormBuilder.field('select', {
       default: function() {
         return [
           {
-            label: T('widgets.formBuilder.dataSource.select.optionsDefault.option1')
+            label: T('widgets.formBuilder.dataSource.select.defaultOptions.option1')
           },
           {
-            label: T('widgets.formBuilder.dataSource.select.optionsDefault.option2')
+            label: T('widgets.formBuilder.dataSource.select.defaultOptions.option2')
           }
         ];
       }
