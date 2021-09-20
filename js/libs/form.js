@@ -813,8 +813,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
           $vm.isOfflineMessage = data.dataStore && data.dataStore.indexOf('editDataSource') > -1 ?
-            'The data can only be updated when connected to the internet.' :
-            'This form can only be submitted when connected to the internet.';
+            T('widgets.formBuilder.dataSource.errors.offlineDataError') :
+            T('widgets.formBuilder.dataSource.errors.offlineFormError');
 
           if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
             $vm.blockScreen = true;

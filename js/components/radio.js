@@ -7,14 +7,16 @@ Fliplet.FormBuilder.field('radio', {
     },
     options: {
       type: Array,
-      default: [
-        {
-          label: 'Option 1'
-        },
-        {
-          label: 'Option 2'
-        }
-      ]
+      default: function() {
+        return [
+          {
+            label: T('widgets.formBuilder.dataSource.radio.defaultOptions.option1')
+          },
+          {
+            label: T('widgets.formBuilder.dataSource.radio.defaultOptions.option2')
+          }
+        ];
+      }
     }
   },
   validations: function() {
