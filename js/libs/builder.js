@@ -191,9 +191,9 @@ new Vue({
       Fliplet.DataSources.update(this.settings.dataSourceId, {
         newColumns: this.newColumns
       }).then(function() {
-        $vm.getDataSourceColumns().then(function(columns) {
-          $vm.setNewColumns(columns);
-        });
+        return $vm.getDataSourceColumns();
+      }).then(function(columns) {
+        $vm.setNewColumns(columns);
       });
     },
     onSort: function(event) {
