@@ -43,6 +43,9 @@ Fliplet.FormBuilder.field('date', {
   computed: {
     isWeb: function() {
       return Fliplet.Env.get('platform') === 'web';
+    },
+    isApplyCurrentDateField: function() {
+      return this.autofill === 'always' || this.autofill === 'default';
     }
   },
   mounted: function() {
@@ -53,11 +56,21 @@ Fliplet.FormBuilder.field('date', {
         format: 'yyyy-mm-dd',
         todayHighlight: true,
         autoclose: true
-      }).on('changeDate', function(e) {
-        $vm.value = moment(e.date).format(DATE_FORMAT);
       });
 
-      this.datePicker.datepicker('setDate', this.value || new Date());
+      // Set an initial value as configured
+      if (this.autofill !== 'empty') {
+        this.datePicker.datepicker('setDate', new Date(this.value) || new Date());
+      }
+
+      // Attach changeDate listener after initial value is assigned
+      this.datePicker.on('changeDate', function(e) {
+        if (e.date) {
+          $vm.value = moment(e.date).format(DATE_FORMAT);
+        }
+
+        $vm.updateValue();
+      });
     }
 
     if (this.defaultValueSource !== 'default') {
@@ -66,21 +79,31 @@ Fliplet.FormBuilder.field('date', {
 
     if (!this.value || this.autofill === 'always') {
       // HTML5 date field wants YYYY-MM-DD format
-      this.value = moment().format('YYYY-MM-DD');
+      this.value = moment().format(DATE_FORMAT);
       this.empty = false;
     }
 
-    this.$emit('_input', this.name, this.value);
+    if (this.autofill === 'empty') {
+      this.value = '';
+      this.datePicker.datepicker('setDate', '');
+
+      return;
+    }
+
+    this.$emit('_input', this.name, this.value, false, true);
     $vm.$v.$reset();
   },
   watch: {
     value: function(val) {
-      if (Fliplet.Env.get('platform') === 'web') {
+      if (this.datepicker) {
         this.datePicker.datepicker('setDate', val);
       }
 
-      this.highlightError();
-      this.$emit('_input', this.name, val);
+      if (this.$v.value.$invalid) {
+        this.highlightError();
+      }
+
+      this.$emit('_input', this.name, val, false, true);
     }
   }
 });

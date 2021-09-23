@@ -38,26 +38,20 @@ Fliplet.FormBuilder.field('time', {
     return rules;
   },
   methods: {
-    updateValue: function(value) {
-      if (value) {
-        this.value = value;
-      }
-
-      this.highlightError();
-      this.$emit('_input', this.name, this.value);
-    },
     initTimePicker: function() {
       var $vm = this;
 
       this.timepicker = $($vm.$refs.timepicker).timeEntry()
         .on('change', function(event) {
           $vm.value = event.target.value;
-          $vm.updateValue($vm.value);
         });
 
       this.timepicker.timeEntry('setTime', $vm.value);
-
-      $vm.$v.$reset();
+    }
+  },
+  computed: {
+    isApplyCurrentDateField: function() {
+      return this.autofill === 'always' || this.autofill === 'default';
     }
   },
   beforeUpdate: function() {
@@ -80,28 +74,31 @@ Fliplet.FormBuilder.field('time', {
       this.setValueFromDefaultSettings({ source: this.defaultValueSource, key: this.defaultValueKey });
     }
 
+    if (this.autofill === 'empty') {
+      this.value = '';
+
+      return;
+    }
+
     if (!this.value || this.autofill === 'always') {
-      var now = new Date();
-      var hours = now.getHours();
-      var minutes = now.getMinutes();
-
-      if (hours < 10) {
-        hours = '0' + hours;
-      }
-
-      if (minutes < 10) {
-        minutes = '0' + minutes;
-      }
-
-      this.updateValue(hours + ':' + minutes);
+      this.value = moment().format('HH:mm');
       this.empty = false;
     }
+
+    this.$emit('_input', this.name, this.value);
+    this.$v.$reset();
   },
   watch: {
     value: function(val) {
-      if (!val) {
-        this.updateValue(moment().format('HH:mm'));
+      if (this.timepicker) {
+        this.timepicker.timeEntry('setTime', val);
       }
+
+      if (this.$v.value.$invalid) {
+        this.highlightError();
+      }
+
+      this.$emit('_input', this.name, val);
     }
   }
 });
