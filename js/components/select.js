@@ -21,7 +21,7 @@ Fliplet.FormBuilder.field('select', {
     placeholder: {
       type: String,
       default: function() {
-        return T('widgets.formBuilder.dataSource.select.placeholder');
+        return '-- ' + T('widgets.formBuilder.dataSource.select.placeholder');
       }
     },
     description: {

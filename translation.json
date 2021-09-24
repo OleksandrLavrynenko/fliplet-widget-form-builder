@@ -10,7 +10,7 @@
                     "invalid": "The input is not a valid email address."
                 },
                 "file": {
-                    "uploaded": "Uploaded:",
+                    "uploaded": "Uploaded",
                     "uploadMessage": "To be uploaded",
                     "instruction": "Choose file"
                 },
@@ -57,7 +57,7 @@
                 },
                 "select": {
                     "name": "Dropdown (single-select)",
-                    "placeholder": "-- Select one",
+                    "placeholder": "Select one",
                     "defaultOptions": {
                         "option1": "Option 1",
                         "option2": "Option 2"
