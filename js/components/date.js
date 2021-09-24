@@ -101,7 +101,6 @@ Fliplet.FormBuilder.field('date', {
         this.highlightError();
       }
 
-      this.highlightError();
       this.$emit('_input', this.name, val, false, true);
     }
   }

@@ -96,6 +96,7 @@ this["Fliplet"]["Widget"]["Templates"]["templates.components.number"] = Handleba
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.integer === false && $v.value.$dirty\">"
     + alias3((helpers.T || (depth0 && depth0.T) || alias2).call(alias1,"widgets.formBuilder.dataSource.number.onlyIntegerDigitsAllowed",{"name":"T","hash":{},"data":data}))
     + "</p>\r\n<p class=\"text-danger\" v-if=\"$v.value.decimal === false && $v.value.$dirty\">{{$t(\"widgets.formBuilder.dataSource.number.invalidDecimal\", {decimals: decimals})}}</p>\r\n";
+
 },"useData":true});
 
 this["Fliplet"]["Widget"]["Templates"]["templates.components.paragraph"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
