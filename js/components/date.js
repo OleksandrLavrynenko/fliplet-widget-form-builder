@@ -93,8 +93,12 @@ Fliplet.FormBuilder.field('date', {
   },
   watch: {
     value: function(val) {
-      if (!val && this.autofill !== 'empty') {
-        this.updateValue(TD(new Date(), { format: 'L' }));
+      if (this.datepicker) {
+        this.datePicker.datepicker('setDate', val);
+      }
+
+      if (this.$v.value.$invalid) {
+        this.highlightError();
       }
 
       this.highlightError();
