@@ -182,17 +182,6 @@ new Vue({
       }
 
       return '';
-    },
-    buttonText: function() {
-      if (this.newColumns.length === 1) {
-        return 'Add column to data source';
-      }
-
-      if (this.newColumns.length > 1) {
-        return 'Add columns to data source';
-      }
-
-      return '';
     }
   },
   methods: {
