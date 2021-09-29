@@ -1,6 +1,6 @@
 {
     "widgets": {
-        "formBuilder": {
+        "form": {
                 "loading": "Loading...",
                 "sending": {
                     "requiredFields": "* Required fields"
