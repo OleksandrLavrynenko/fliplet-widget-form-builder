@@ -1,7 +1,6 @@
 {
     "widgets": {
         "formBuilder": {
-            "dataSource": {
                 "loading": "Loading...",
                 "sending": {
                     "requiredFields": "* Required fields"
