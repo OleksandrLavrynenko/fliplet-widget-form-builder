@@ -111,7 +111,7 @@ Fliplet.FormBuilder.field('image', {
       if (!this.value.length) {
         $(this.$refs.imageInput).parents('.form-group').addClass('has-error');
 
-        return Promise.reject(T('widgets.formBuilder.dataSource.image.required'));
+        return Promise.reject(T('widgets.form.image.required'));
       }
     },
     validateValue: function() {
@@ -140,20 +140,20 @@ Fliplet.FormBuilder.field('image', {
         $vm.boundingRect = fileInput.getBoundingClientRect();
 
         var buttonLabels = [
-          T('widgets.formBuilder.dataSource.image.actionLabels.takePhoto'),
-          T('widgets.formBuilder.dataSource.image.actionLabels.choosePhoto'),
-          T('widgets.formBuilder.dataSource.image.actionLabels.cancel')
+          T('widgets.form.image.actionLabels.takePhoto'),
+          T('widgets.form.image.actionLabels.choosePhoto'),
+          T('widgets.form.image.actionLabels.cancel')
         ];
 
         if (Modernizr.windows) {
           buttonLabels = [
-            T('widgets.formBuilder.dataSource.image.actionLabels.takePhoto'),
-            T('widgets.formBuilder.dataSource.image.actionLabels.choosePhoto')
+            T('widgets.form.image.actionLabels.takePhoto'),
+            T('widgets.form.image.actionLabels.choosePhoto')
           ];
         }
 
         navigator.notification.confirm(
-          T('widgets.formBuilder.dataSource.image.confirmMessage'),
+          T('widgets.form.image.confirmMessage'),
           function onSelectedImageMethod(button) {
             document.body.focus();
 
@@ -171,7 +171,7 @@ Fliplet.FormBuilder.field('image', {
                 return;
             }
           },
-          T('widgets.formBuilder.dataSource.image.confirmLabel'),
+          T('widgets.form.image.confirmLabel'),
           buttonLabels
         );
       });

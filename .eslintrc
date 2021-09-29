@@ -3,8 +3,6 @@
   "globals": {
     "Modernizr": "readonly",
     "Vue": "readonly",
-    "Sortable": "readonly",
-    "TN": "readonly",
-    "T": "readonly"
+    "Sortable": "readonly"
   }
 }

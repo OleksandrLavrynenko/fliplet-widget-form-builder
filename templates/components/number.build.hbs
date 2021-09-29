@@ -25,8 +25,8 @@
   :placeholder="placeholder"
   tabindex="0"
 />
-<p class="text-danger" v-if="$v.value.maxLength === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.number.invalidLength"}}</p>
-<p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.errors.required"}}</p>
-<p class="text-danger" v-if="$v.value.positive === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.number.onlyPositiveDigitsAllowed"}}</p>
-<p class="text-danger" v-if="$v.value.integer === false && $v.value.$dirty">{{T "widgets.formBuilder.dataSource.number.onlyIntegerDigitsAllowed"}}</p>
-<p class="text-danger" v-if="$v.value.decimal === false && $v.value.$dirty">\{{$t("widgets.formBuilder.dataSource.number.invalidDecimal", {decimals: decimals})}}</p>
+<p class="text-danger" v-if="$v.value.maxLength === false && $v.value.$dirty">{{T "widgets.form.number.invalidLength"}}</p>
+<p class="text-danger" v-if="$v.value.required === false && $v.value.$dirty">{{T "widgets.form.errors.required"}}</p>
+<p class="text-danger" v-if="$v.value.positive === false && $v.value.$dirty">{{T "widgets.form.number.onlyPositiveDigitsAllowed"}}</p>
+<p class="text-danger" v-if="$v.value.integer === false && $v.value.$dirty">{{T "widgets.form.number.onlyIntegerDigitsAllowed"}}</p>
+<p class="text-danger" v-if="$v.value.decimal === false && $v.value.$dirty">\{{$t("widgets.form.number.invalidDecimal", {decimals: decimals})}}</p>
