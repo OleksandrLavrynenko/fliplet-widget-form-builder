@@ -63,7 +63,7 @@
         }
       },
       "telephone": {
-        "instruction": "Phone could contain <b>; , . ( ) - + SPACE * #</b> and numbers."
+        "instruction": "Phone number can only contain <b>; , . ( ) - + SPACE * #</b> and numbers."
       },
       "title": {
         "defaultValue": "Title"
