@@ -62,7 +62,7 @@ Fliplet.FormBuilder.field('time', {
      * which is HH:mm
      */
     if (moment(this.value, 'HH:mm A', true).isValid()) {
-      this.value = TD(this.value, { format: 'LT' });
+      this.value = moment(this.value, 'HH:mm A').format('HH:mm');
     }
   },
   mounted: function() {
@@ -81,7 +81,7 @@ Fliplet.FormBuilder.field('time', {
     }
 
     if (!this.value || this.autofill === 'always') {
-      this.updateValue(TD( new Date(), { format: 'LT' }));
+      this.value = moment().format('HH:mm');
       this.empty = false;
     }
 
