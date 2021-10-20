@@ -43,20 +43,50 @@ Fliplet.FormBuilder.field('password', {
     },
     description: {
       type: String
+    },
+    validationStatus: {
+      type: String,
+      default: 'success'
     }
+  },
+  data: function() {
+    return {
+      isFocused: false,
+      isPreview: Fliplet.Env.get('preview'),
+      validationClasses: {
+        success: 'panel-default',
+        error: 'panel-danger'
+      }
+    };
   },
   validations: function() {
     var rules = {
-      value: {},
-      passwordConfirmation: {}
+      value: {
+        required: window.validators.required,
+        minLength: window.validators.minLength(8),
+        validLength: function(value) {
+          return this.$v.value.minLength && value;
+        },
+        containsUppercase: function(value) {
+          return /[A-Z]/.test(value);
+        },
+        containsLowercase: function(value) {
+          return /[a-z]/.test(value);
+        },
+        containsNumber: function(value) {
+          return /[0-9]/.test(value);
+        },
+        containsSpecial: function(value) {
+          return /[#?!@$%^&*-]/.test(value);
+        }
+      },
+      passwordConfirmation: {
+        sameAsPassword: window.validators.sameAs('value')
+      }
     };
 
-    if (this.required) {
-      rules.value.required = window.validators.required;
-    }
-
     if (this.confirm) {
-      rules.passwordConfirmation.sameAs = window.validators.sameAs('value');
+      rules.passwordConfirmation.sameAsPassword = window.validators.sameAs('value');
     }
 
     return rules;
@@ -64,6 +94,13 @@ Fliplet.FormBuilder.field('password', {
   computed: {
     fieldPlaceholder: function() {
       return this.autogenerate ? 'A password will be automatically generated' : this.placeholder;
+    },
+    validationClass: function() {
+      if (this.validationStatus) {
+        return this.validationClasses[this.validationStatus];
+      }
+
+      return this.validationClasses.success;
     }
   },
   mounted: function() {
