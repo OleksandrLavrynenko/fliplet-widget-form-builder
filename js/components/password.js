@@ -43,20 +43,54 @@ Fliplet.FormBuilder.field('password', {
     },
     description: {
       type: String
+    },
+    validationStatus: {
+      type: String,
+      default: 'success'
     }
+  },
+  data: function() {
+    return {
+      isFocused: false,
+      isPreview: Fliplet.Env.get('preview'),
+      passwordMinLength: 8,
+      validationClasses: {
+        success: 'panel-default',
+        error: 'panel-danger'
+      },
+      rules: {
+        isUppercase: new RegExp('[A-Z]'),
+        isLowercase: new RegExp('[a-z]'),
+        isNumber: new RegExp('[0-9]'),
+        isSpecial: new RegExp('[^A-Za-z0-9]')
+      }
+    };
   },
   validations: function() {
     var rules = {
-      value: {},
-      passwordConfirmation: {}
+      value: {
+        required: window.validators.required,
+        minLength: window.validators.minLength(this.passwordMinLength),
+        containsUppercase: function(value) {
+          return this.rules.isUppercase.test(value);
+        },
+        containsLowercase: function(value) {
+          return this.rules.isLowercase.test(value);
+        },
+        containsNumber: function(value) {
+          return this.rules.isNumber.test(value);
+        },
+        containsSpecial: function(value) {
+          return this.rules.isSpecial.test(value);
+        }
+      },
+      passwordConfirmation: {
+        sameAsPassword: window.validators.sameAs('value')
+      }
     };
 
-    if (this.required) {
-      rules.value.required = window.validators.required;
-    }
-
     if (this.confirm) {
-      rules.passwordConfirmation.sameAs = window.validators.sameAs('value');
+      rules.passwordConfirmation.sameAsPassword = window.validators.sameAs('value');
     }
 
     return rules;
@@ -64,6 +98,13 @@ Fliplet.FormBuilder.field('password', {
   computed: {
     fieldPlaceholder: function() {
       return this.autogenerate ? 'A password will be automatically generated' : this.placeholder;
+    },
+    validationClass: function() {
+      if (this.validationStatus) {
+        return this.validationClasses[this.validationStatus];
+      }
+
+      return this.validationClasses.success;
     }
   },
   mounted: function() {

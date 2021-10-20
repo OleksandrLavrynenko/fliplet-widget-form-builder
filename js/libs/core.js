@@ -163,8 +163,10 @@ Fliplet.FormBuilder = (function() {
           $vm.$v.$touch();
 
           if ($vm.$v.value.$error) {
+            $vm.validationStatus = 'error';
             $($vm.$el).addClass('has-error');
           } else {
+            $vm.validationStatus = 'success';
             $($vm.$el).removeClass('has-error');
           }
         }
