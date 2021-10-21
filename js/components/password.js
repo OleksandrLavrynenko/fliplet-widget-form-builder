@@ -51,7 +51,7 @@ Fliplet.FormBuilder.field('password', {
   },
   data: function() {
     return {
-      isFocus: false,
+      isFocused: false,
       isPreview: Fliplet.Env.get('preview'),
       validationClasses: {
         success: 'panel-default',

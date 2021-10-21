@@ -687,7 +687,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
 
             $vm.isSent = true;
-            $vm.fields.some(function(field) {
+            $vm.fields.forEach(function(field) {
               if (field._type === 'flPassword' && field.passwordConfirmation) {
                 field.passwordConfirmation = '';
               }

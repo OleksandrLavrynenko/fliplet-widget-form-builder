@@ -1303,3 +1303,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .fl-form .checkbox.checkbox-icon label > span.check > i.fa {
   top: 2px;
 }
+
+.fl-form .password-checker {
+  margin-top: 10px;
+  margin-bottom: 0
+}
+.fl-form .password-checker .panel-body{
+  padding: 15px 15px 5px 15px
+}
