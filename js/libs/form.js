@@ -251,6 +251,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
       return {
         isFormValid: false,
         isSent: false,
+        isLoad: false,
         isSending: false,
         isSendingMessage: 'Saving data...',
         isLoading: !!entryId,
@@ -1018,6 +1019,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
       });
+
+      this.isLoad = true
     }
   });
 
