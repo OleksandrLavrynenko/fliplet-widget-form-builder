@@ -1199,7 +1199,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   justify-content: center;
   cursor: default;
   width: 21px;
+  min-width: 21px;
   height: 21px;
+  min-height: 21px;
   border: 1px solid rgba(51, 51, 51, 0.1);
   background-color: #f8f6f7;
   margin-bottom: 0;

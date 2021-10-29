@@ -53,9 +53,16 @@ Fliplet.FormBuilder.field('password', {
     return {
       isFocused: false,
       isPreview: Fliplet.Env.get('preview'),
+      passwordMinLength: 8,
       validationClasses: {
         success: 'panel-default',
         error: 'panel-danger'
+      },
+      rules: {
+        isUppercase: new RegExp('[A-Z]'),
+        isLowercase: new RegExp('[a-z]'),
+        isNumber: new RegExp('[0-9]'),
+        isSpecial: new RegExp('[^A-Za-z0-9]')
       }
     };
   },
@@ -63,21 +70,18 @@ Fliplet.FormBuilder.field('password', {
     var rules = {
       value: {
         required: window.validators.required,
-        minLength: window.validators.minLength(8),
-        validLength: function(value) {
-          return this.$v.value.minLength && value;
-        },
+        minLength: window.validators.minLength(this.passwordMinLength),
         containsUppercase: function(value) {
-          return /[A-Z]/.test(value);
+          return this.rules.isUppercase.test(value);
         },
         containsLowercase: function(value) {
-          return /[a-z]/.test(value);
+          return this.rules.isLowercase.test(value);
         },
         containsNumber: function(value) {
-          return /[0-9]/.test(value);
+          return this.rules.isNumber.test(value);
         },
         containsSpecial: function(value) {
-          return /[#?!@$%^&*-]/.test(value);
+          return this.rules.isSpecial.test(value);
         }
       },
       passwordConfirmation: {
