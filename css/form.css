@@ -1176,49 +1176,40 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   }
 }
 
-.fl-form .checkbox.checkbox-icon input,
-.fl-form .radio.radio-icon input {
-  z-index: -1;
-  position: absolute;
-  margin: 0;
-  width: 21px;
-  height: 21px;
-  opacity: 0;
-  background: none;
-  display: block;
+
+.password-checker {
+  margin-top: 10px;
+  margin-bottom: 0
 }
 
-.fl-form .checkbox.checkbox-icon input + label,
-.fl-form .radio.radio-icon input + label {
-  padding-left: 25px;
+.password-checker .panel-body{
+  padding: 15px 15px 5px 15px
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
   color: #333;
-  cursor: pointer;
+  margin-bottom: 8px;
 }
 
-.fl-form .checkbox.checkbox-icon input[readonly] + label,
-.fl-form .radio.radio-icon input[readonly] + label {
+.requirement .requirement-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: default;
-}
-
-.fl-form .checkbox.checkbox-icon input + label > span.check,
-.fl-form .radio.radio-icon input + label > span.check {
-  position: absolute;
-  left: 0;
   width: 21px;
   height: 21px;
   border: 1px solid rgba(51, 51, 51, 0.1);
   background-color: #f8f6f7;
-  padding-left: 0;
   margin-bottom: 0;
-  text-align: center;
+  border-radius: 50%;
+  margin-right: 4px;
 }
 
-.fl-form .checkbox.checkbox-icon input[type="checkbox"] + label > span.check > i.fa,
-.fl-form .radio.radio-icon input[type="checkbox"] + label > span.check > i.fa {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
+.requirement .requirement-marker i.fa {
+  color: #FFF;
+  font-size: 10px;
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   transform: scale(0);
@@ -1227,38 +1218,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   transition: all 0.25s ease;
 }
 
-.fl-form .checkbox.checkbox-icon.checkbox-success input:checked + label > span.check,
-.fl-form .radio.radio-icon.radio-success input:checked + label > span.check {
+.requirement input:checked + .requirement-marker {
   background-color: #3c763d;
 }
 
-.fl-form .checkbox.checkbox-icon input:checked + label > span.check > i.fa,
-.fl-form .radio.radio-icon input:checked + label > span.check > i.fa {
-  color: #FFF;
+.requirement input:checked + .requirement-marker i.fa {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
-}
-
-.fl-form .radio.radio-icon label > span.check {
-  border-radius: 50%;
-}
-
-.fl-form .checkbox.checkbox-icon label > span.check {
-  border-radius: 4px;
-}
-
-.fl-form .radio.radio-icon label > span.check > i.fa {
-  top: 0;
-  line-height: 18px;
-  font-size: 10px;
-}
-
-.fl-form .password-checker {
-  margin-top: 10px;
-  margin-bottom: 0
-}
-
-.fl-form .password-checker .panel-body{
-  padding: 15px 15px 5px 15px
 }
