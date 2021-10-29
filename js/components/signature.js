@@ -1,5 +1,4 @@
 /* global SignaturePad */
-
 Fliplet.FormBuilder.field('signature', {
   name: 'Signature',
   category: 'Advanced',
@@ -31,8 +30,12 @@ Fliplet.FormBuilder.field('signature', {
       default: []
     }
   },
-  data: {
-    previousClientWidth: 0
+  data: function() {
+    return {
+      previousClientWidth: 0,
+      isPreview: false,
+      isEdit: false
+    };
   },
   validations: function() {
     var rules = {
@@ -50,8 +53,13 @@ Fliplet.FormBuilder.field('signature', {
       return Fliplet.Themes && Fliplet.Themes.Current.get('bodyTextColor') || '#e5e5e5';
     }
   },
+  created: function() {
+    if (this.value) {
+      this.isPreview = true;
+    }
+  },
   mounted: function() {
-    if (this.readonly) {
+    if (this.readonly || this.isPreview) {
       return;
     }
 
@@ -72,6 +80,10 @@ Fliplet.FormBuilder.field('signature', {
         $vm.value = true;
         $vm.updateValue();
       }
+    };
+
+    this.pad.onBegin = function() {
+      $vm.isEdit = true;
     };
 
     Fliplet.FormBuilder.on('reset', this.onReset);
@@ -99,7 +111,6 @@ Fliplet.FormBuilder.field('signature', {
     onReset: function() {
       if (this.pad) {
         this.pad.clear();
-        this.value = null;
       }
     },
     clean: function() {
@@ -120,6 +131,13 @@ Fliplet.FormBuilder.field('signature', {
 
       // Get signature as base 64 string
       data[this.name] = this.pad.toDataURL('image/png') + ';filename:' + this.name + ' ' + moment().format('YYYY-MM-DD HH:mm') + '.png';
+    }
+  },
+  watch: {
+    value: function() {
+      if (!this.isEdit) {
+        this.isPreview = true;
+      }
     }
   }
 });
