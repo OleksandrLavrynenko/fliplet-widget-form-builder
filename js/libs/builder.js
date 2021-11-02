@@ -81,6 +81,7 @@ function generateFormDefaults(data) {
     name: '',
     dataSourceId: '',
     templateId: '',
+    templateDefined: false,
     previewingTemplate: '',
     fields: [],
     offline: true,
@@ -658,6 +659,7 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
+      settings.templateDefined = true;
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
