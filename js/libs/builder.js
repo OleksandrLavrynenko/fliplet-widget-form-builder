@@ -81,7 +81,7 @@ function generateFormDefaults(data) {
     name: '',
     dataSourceId: '',
     templateId: '',
-    templateDefined: false,
+    templateDefined: Fliplet.Env.get('preview'),
     previewingTemplate: '',
     fields: [],
     offline: true,
