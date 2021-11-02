@@ -286,6 +286,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
+        templateDefined: data.templateDefined,
         fields: getFields(),
         error: null,
         errors: {},
