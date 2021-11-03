@@ -34,7 +34,7 @@ Fliplet.FormBuilder.field('signature', {
     return {
       previousClientWidth: 0,
       isPreview: false,
-      isEdit: false
+      isEdited: false
     };
   },
   validations: function() {
@@ -83,7 +83,7 @@ Fliplet.FormBuilder.field('signature', {
     };
 
     this.pad.onBegin = function() {
-      $vm.isEdit = true;
+      $vm.isEdited = true;
     };
 
     Fliplet.FormBuilder.on('reset', this.onReset);
@@ -135,7 +135,7 @@ Fliplet.FormBuilder.field('signature', {
   },
   watch: {
     value: function() {
-      if (!this.isEdit) {
+      if (!this.isEdited) {
         this.isPreview = true;
       }
     }
