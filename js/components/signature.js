@@ -59,7 +59,7 @@ Fliplet.FormBuilder.field('signature', {
     }
   },
   mounted: function() {
-    if (this.readonly || this.isPreview) {
+    if (this.readonly) {
       return;
     }
 
