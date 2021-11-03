@@ -68,19 +68,19 @@ Fliplet.FormBuilder.field('checkbox', {
     var $vm = this;
 
     if (this.value.length > 0) {
-      var selectedOptions = [];
+      var inOptions = [];
 
       this.value.forEach(function(element) {
-        var selectedOption = _.find($vm.options, function(option) {
+        var match = _.find($vm.options, function(option) {
           return option.label === element || option.id === element;
         });
 
-        if (selectedOption) {
-          selectedOptions.push(selectedOption);
+        if (match) {
+          inOptions.push(match);
         }
       });
 
-      this.value = selectedOptions.length ? _.uniqWith(this.value, _.isEqual) : [];
+      this.value = inOptions.length ? _.uniqWith(this.value, _.isEqual) : [];
     }
 
     if (!!this.defaultValue) {

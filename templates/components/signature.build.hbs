@@ -5,7 +5,7 @@
   </div>
 </template>
 <template v-else>
-  <div v-show="isEditable" class="signature-editor">
+  <div v-show="!isPreview" class="signature-editor">
     <div class="field-signature focus-outline" tabindex="0">
       <canvas :id="name" ref="canvas"></canvas>
       <a
@@ -20,7 +20,7 @@
       </a>
     </div>
   </div>
-  <div v-show="!isEditable" class="field-signature focus-outline signature-preview" tabindex="0">
+  <div v-show="isPreview" class="field-signature focus-outline signature-preview" tabindex="0">
     <img :src="value" alt="signature image" />
     <a href="#" v-on:click.prevent="isPreview = false">Edit</a>
   </div>

@@ -33,7 +33,7 @@ Fliplet.FormBuilder.field('signature', {
   data: function() {
     return {
       previousClientWidth: 0,
-      isEditable: true,
+      isPreview: false,
       isEdited: false
     };
   },
@@ -55,11 +55,11 @@ Fliplet.FormBuilder.field('signature', {
   },
   created: function() {
     if (this.value) {
-      this.isEditable = false;
+      this.isPreview = true;
     }
   },
   mounted: function() {
-    if (this.readonly || this.isPreview) {
+    if (this.readonly) {
       return;
     }
 
@@ -136,7 +136,7 @@ Fliplet.FormBuilder.field('signature', {
   watch: {
     value: function() {
       if (!this.isEdited) {
-        this.isEditable = false;
+        this.isPreview = true;
       }
     }
   }
