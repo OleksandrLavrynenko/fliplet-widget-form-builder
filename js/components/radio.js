@@ -49,10 +49,10 @@ Fliplet.FormBuilder.field('radio', {
   created: function() {
     var $vm = this;
 
-    var match = _.find($vm.options, function(option) {
+    var selectedOption = _.find($vm.options, function(option) {
       return option.label === $vm.value || option.id === $vm.value;
     });
 
-    this.value = match ? this.value : '';
+    this.value = selectedOption ? this.value : '';
   }
 });
