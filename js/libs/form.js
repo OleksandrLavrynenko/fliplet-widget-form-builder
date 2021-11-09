@@ -211,12 +211,15 @@ Fliplet.Widget.instance('form-builder', function(data) {
               }
               break;
 
+            case 'flCheckbox': // There is no validation and value assignment as there is no access to checkbox options. This realized in the checkbox component.
             case 'flStarRating':
               field.options = _.times(5, function(i) {
                 return {
                   id: '' + (i+1)
                 };
               });
+
+            case 'flRadio': // There is no validation and value assignment as there is no access to radio options. This realized in the radio component.
 
             default:
               field.value = fieldData;
