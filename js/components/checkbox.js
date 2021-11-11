@@ -72,7 +72,7 @@ Fliplet.FormBuilder.field('checkbox', {
 
       this.value.forEach(function(value) {
         var selectedOption = _.find($vm.options, function(option) {
-          return (_.hsa(option, 'label') && _.hsa(option, 'id')) ? option.id === value : option.label === value;
+          return (_.has(option, 'label') && _.has(option, 'id')) ? option.id === value : option.label === value;
         });
 
         if (selectedOption) {

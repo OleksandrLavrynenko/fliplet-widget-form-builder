@@ -50,7 +50,7 @@ Fliplet.FormBuilder.field('radio', {
     var $vm = this;
 
     var selectedOption = _.find($vm.options, function(option) {
-      return (_.hsa(option, 'label') && _.hsa(option, 'id')) ? option.id === $vm.value : option.label === $vm.value;
+      return (_.has(option, 'label') && _.has(option, 'id')) ? option.id === $vm.value : option.label === $vm.value;
     });
 
     this.value = selectedOption ? this.value : '';
