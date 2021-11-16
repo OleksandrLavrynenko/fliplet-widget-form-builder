@@ -69,29 +69,25 @@ Fliplet.FormBuilder.field('password', {
   validations: function() {
     var rules = {
       value: {
-        required: window.validators.required,
+        required: this.required && window.validators.required,
         minLength: window.validators.minLength(this.passwordMinLength),
         containsUppercase: function(value) {
-          return this.rules.isUppercase.test(value);
+          return value ? this.rules.isUppercase.test(value) : true;
         },
         containsLowercase: function(value) {
-          return this.rules.isLowercase.test(value);
+          return value ? this.rules.isLowercase.test(value) : true;
         },
         containsNumber: function(value) {
-          return this.rules.isNumber.test(value);
+          return value ? this.rules.isNumber.test(value) : true;
         },
         containsSpecial: function(value) {
-          return this.rules.isSpecial.test(value);
+          return value ? this.rules.isSpecial.test(value) : true;
         }
       },
       passwordConfirmation: {
-        sameAsPassword: window.validators.sameAs('value')
+        sameAsPassword: this.confirm && window.validators.sameAs('value')
       }
     };
-
-    if (this.confirm) {
-      rules.passwordConfirmation.sameAsPassword = window.validators.sameAs('value');
-    }
 
     return rules;
   },
