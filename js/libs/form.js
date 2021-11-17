@@ -448,7 +448,21 @@ Fliplet.Widget.instance('form-builder', function(data) {
             inputField.$v.$touch();
 
             if (inputField.$v.$invalid) {
-              inputField.validationStatus = false
+              if (inputField.$v.passwordConfirmation) {
+                if (inputField.$v.value.$invalid) {
+                  inputField.validationStatus = false;
+                  inputField.confirmationStatus = false;
+                } else if (!inputField.$v.value.$invalid && inputField.$v.passwordConfirmation.$invalid) {
+                  inputField.validationStatus = true;
+                  inputField.confirmationStatus = false;
+                } else {
+                  inputField.validationStatus = true;
+                  inputField.confirmationStatus = true;
+                }
+              } else {
+                inputField.validationStatus = false
+              }
+              
               invalidFields.push(inputField);
               $vm.isFormValid = false;
             }

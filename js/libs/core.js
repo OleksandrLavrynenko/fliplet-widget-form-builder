@@ -160,9 +160,20 @@ Fliplet.FormBuilder = (function() {
         var $vm = this;
 
         if ($vm.$v && $vm.$v.value) {
-          $vm.$v.$touch();
+          if ($vm.$v.passwordConfirmation) {
+            if ($vm.$v.value.$invalid) {
+              $vm.validationStatus = false;
+              $vm.confirmationStatus = false;
+            } else if (!$vm.$v.value.$invalid && $vm.$v.passwordConfirmation.$invalid) {
+              $vm.validationStatus = true;
+              $vm.confirmationStatus = false;
+            } else {
+              $vm.validationStatus = true;
+              $vm.confirmationStatus = true;
+            }
 
-          if ($vm.$v.value.$error) {
+            return;
+          } else if ($vm.$v.value.$error) {
             $vm.validationStatus = true;
           } else {
             $vm.validationStatus = false;
@@ -298,8 +309,8 @@ Fliplet.FormBuilder = (function() {
           default: ''
         },
         validationStatus: {
-          type: String,
-          default: 'success'
+          type: Boolean,
+          default: true
         }
       }, component.props);
 

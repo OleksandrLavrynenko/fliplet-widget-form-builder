@@ -44,9 +44,13 @@ Fliplet.FormBuilder.field('password', {
     description: {
       type: String
     },
+    confirmationStatus: {
+      type: Boolean,
+      default: true
+    },
     validationStatus: {
-      type: String,
-      default: 'success'
+      type: Boolean,
+      default: true
     }
   },
   data: function() {
@@ -95,7 +99,7 @@ Fliplet.FormBuilder.field('password', {
     validationClass: function() {
       return {
         password: !this.validationStatus && this.$v.value.$invalid ? this.validationClasses[0] : this.validationClasses[1],
-        passwordConfirmation: !this.validationStatus && this.$v.passwordConfirmation.$invalid ? this.validationClasses[0] : this.validationClasses[1]
+        passwordConfirmation: !this.confirmationStatus && this.$v.passwordConfirmation.$invalid ? this.validationClasses[0] : this.validationClasses[1]
       };
     }
   },
