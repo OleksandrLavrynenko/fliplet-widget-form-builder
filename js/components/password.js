@@ -54,10 +54,7 @@ Fliplet.FormBuilder.field('password', {
       isFocused: false,
       isPreview: Fliplet.Env.get('preview'),
       passwordMinLength: 8,
-      validationClasses: {
-        success: 'panel-default',
-        error: 'panel-danger'
-      },
+      validationClasses: ['panel-danger', 'panel-default'],
       rules: {
         isUppercase: new RegExp('[A-Z]'),
         isLowercase: new RegExp('[a-z]'),
@@ -96,11 +93,10 @@ Fliplet.FormBuilder.field('password', {
       return this.autogenerate ? 'A password will be automatically generated' : this.placeholder;
     },
     validationClass: function() {
-      if (this.validationStatus) {
-        return this.validationClasses[this.validationStatus];
-      }
-
-      return this.validationClasses.success;
+      return {
+        password: !this.validationStatus && this.$v.value.$invalid ? this.validationClasses[0] : this.validationClasses[1],
+        passwordConfirmation: !this.validationStatus && this.$v.passwordConfirmation.$invalid ? this.validationClasses[0] : this.validationClasses[1]
+      };
     }
   },
   mounted: function() {

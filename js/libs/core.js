@@ -163,11 +163,9 @@ Fliplet.FormBuilder = (function() {
           $vm.$v.$touch();
 
           if ($vm.$v.value.$error) {
-            $vm.validationStatus = 'error';
-            $($vm.$el).addClass('has-error');
+            $vm.validationStatus = true;
           } else {
-            $vm.validationStatus = 'success';
-            $($vm.$el).removeClass('has-error');
+            $vm.validationStatus = false;
           }
         }
       };
@@ -298,6 +296,10 @@ Fliplet.FormBuilder = (function() {
         defaultValueKey: {
           type: String,
           default: ''
+        },
+        validationStatus: {
+          type: String,
+          default: 'success'
         }
       }, component.props);
 

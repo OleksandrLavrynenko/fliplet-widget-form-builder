@@ -448,8 +448,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             inputField.$v.$touch();
 
             if (inputField.$v.$invalid) {
-              inputField.validationStatus = 'error'
-              $(inputField.$el).addClass('has-error');
+              inputField.validationStatus = false
               invalidFields.push(inputField);
               $vm.isFormValid = false;
             }
