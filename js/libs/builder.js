@@ -327,9 +327,7 @@ new Vue({
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
-      return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-        return $vm.updateDataSourceHooks();
-      });
+      return Fliplet.Widget.save(this.settings);
     },
     createDefaultBodyTemplate: function(fields) {
       // Creates default email template
@@ -543,7 +541,7 @@ new Vue({
         return dataSource.columns || [];
       });
     },
-    updateDataSourceHooks: function() {
+    updateDataSource: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.chain(this.fields)
         .filter(function(field) {
@@ -566,18 +564,17 @@ new Vue({
         var hooksDeleted;
         var columns = _.uniq(newColumns.concat(ds.columns));
 
-        // remove existing hooks for the operations from the same widget instance
+        // remove existing hooks for the operations
         ds.hooks = _.reject(ds.hooks || [], function(hook) {
-          var remove = hook.widgetInstanceId == widgetId && hook.type == 'operations';
+          var result = hook.widgetInstanceId == widgetId && hook.type == 'operations';
 
-          if (remove) {
+          if (result) {
             hooksDeleted = true;
           }
 
-          return remove;
+          return result;
         });
 
-        // add fields that need to be hashed to data source hooks
         if (fieldsToHash) {
           var payload = {};
 
@@ -593,7 +590,7 @@ new Vue({
           });
         } else if (!hooksDeleted) {
           if (_.isEqual(columns.sort(), ds.columns.sort())) {
-            return; // no need to update
+            return Promise.resolve(); // no need to update
           }
         }
 
