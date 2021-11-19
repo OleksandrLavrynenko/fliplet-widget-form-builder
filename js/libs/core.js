@@ -161,22 +161,11 @@ Fliplet.FormBuilder = (function() {
 
         if ($vm.$v && $vm.$v.value) {
           if ($vm.$v.passwordConfirmation) {
-            if ($vm.$v.value.$invalid) {
-              $vm.validationStatus = false;
-              $vm.confirmationStatus = false;
-            } else if (!$vm.$v.value.$invalid && $vm.$v.passwordConfirmation.$invalid) {
-              $vm.validationStatus = true;
-              $vm.confirmationStatus = false;
-            } else {
-              $vm.validationStatus = true;
-              $vm.confirmationStatus = true;
-            }
-
             return;
           } else if ($vm.$v.value.$error) {
-            $vm.validationStatus = true;
+            $vm.isValid = true;
           } else {
-            $vm.validationStatus = false;
+            $vm.isValid = false;
           }
         }
       };
@@ -308,7 +297,7 @@ Fliplet.FormBuilder = (function() {
           type: String,
           default: ''
         },
-        validationStatus: {
+        isValid: {
           type: Boolean,
           default: true
         }

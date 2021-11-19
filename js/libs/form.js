@@ -449,18 +449,10 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
             if (inputField.$v.$invalid) {
               if (inputField.$v.passwordConfirmation) {
-                if (inputField.$v.value.$invalid) {
-                  inputField.validationStatus = false;
-                  inputField.confirmationStatus = false;
-                } else if (!inputField.$v.value.$invalid && inputField.$v.passwordConfirmation.$invalid) {
-                  inputField.validationStatus = true;
-                  inputField.confirmationStatus = false;
-                } else {
-                  inputField.validationStatus = true;
-                  inputField.confirmationStatus = true;
-                }
+                inputField.isValid = !inputField.$v.value.$invalid;
+                inputField.isPasswordsSame = inputField.$v.value.$invalid ? false : !inputField.$v.passwordConfirmation.$invalid;
               } else {
-                inputField.validationStatus = false
+                inputField.isValid = false
               }
               
               invalidFields.push(inputField);

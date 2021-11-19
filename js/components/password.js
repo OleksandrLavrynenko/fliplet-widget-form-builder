@@ -44,11 +44,11 @@ Fliplet.FormBuilder.field('password', {
     description: {
       type: String
     },
-    confirmationStatus: {
+    isPasswordsSame: {
       type: Boolean,
       default: true
     },
-    validationStatus: {
+    isValid: {
       type: Boolean,
       default: true
     }
@@ -58,7 +58,8 @@ Fliplet.FormBuilder.field('password', {
       isFocused: false,
       isPreview: Fliplet.Env.get('preview'),
       passwordMinLength: 8,
-      validationClasses: ['panel-danger', 'panel-default'],
+      defaultClass: 'panel-default',
+      invalidClass: 'panel-danger',
       rules: {
         isUppercase: new RegExp('[A-Z]'),
         isLowercase: new RegExp('[a-z]'),
@@ -98,8 +99,8 @@ Fliplet.FormBuilder.field('password', {
     },
     validationClass: function() {
       return {
-        password: !this.validationStatus && this.$v.value.$invalid ? this.validationClasses[0] : this.validationClasses[1],
-        passwordConfirmation: !this.confirmationStatus && this.$v.passwordConfirmation.$invalid ? this.validationClasses[0] : this.validationClasses[1]
+        password: !this.isValid ? this.invalidClass : this.defaultClass,
+        passwordConfirmation: !this.isPasswordsSame ? this.invalidClass : this.defaultClass
       };
     }
   },
@@ -126,6 +127,13 @@ Fliplet.FormBuilder.field('password', {
     },
     onPasswordConfirmationInput: function($event) {
       this.$emit('_input', this.name, $event.target.value, true, true);
+    }
+  },
+  watch: {
+    '$v.passwordConfirmation.$invalid': function(value) {
+      if (!value) {
+        this.isPasswordsSame = true;
+      }
     }
   }
 });
