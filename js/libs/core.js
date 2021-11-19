@@ -162,11 +162,9 @@ Fliplet.FormBuilder = (function() {
         if ($vm.$v && $vm.$v.value) {
           if ($vm.$v.passwordConfirmation) {
             return;
-          } else if ($vm.$v.value.$error) {
-            $vm.isValid = true;
-          } else {
-            $vm.isValid = false;
           }
+
+          $vm.isValid = !$vm.$v.value.$error;
         }
       };
 
