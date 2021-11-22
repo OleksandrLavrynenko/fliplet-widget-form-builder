@@ -114,9 +114,18 @@ Fliplet.FormBuilder.field('password', {
     generateRandomPassword: function(length) {
       var alphabet = 'abcdefghijklmnopqrstuvwxyz!#$%&*-ABCDEFGHIJKLMNOP1234567890';
       var password = '';
+      var isValid = true;
 
       for (var x = 0; x < length; x++) {
         password += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+      }
+
+      _.forEach(this.rules, function(value) {
+        if (!value.test(password)) isValid = false;
+      });
+
+      if (!isValid) {
+        return this.generateRandomPassword(length);
       }
 
       return password;
