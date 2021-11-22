@@ -121,14 +121,14 @@ Fliplet.FormBuilder.field('password', {
       }
 
       _.forEach(this.rules, function(value) {
-        if (!value.test(password)) isValid = false;
+        if (!value.test(password)) {
+          isValid = false;
+
+          return false;
+        }
       });
 
-      if (!isValid) {
-        return this.generateRandomPassword(length);
-      }
-
-      return password;
+      return isValid ? password : this.generateRandomPassword(length);
     },
     updatePasswordConfirmation: function() {
       this.$v.passwordConfirmation.$touch();
