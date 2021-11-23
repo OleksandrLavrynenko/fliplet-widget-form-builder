@@ -23,21 +23,20 @@ Fliplet.FormBuilder.field('email', {
     return rules;
   },
   created: function() {
-    if (this.value) {
-      this.validateCharacters();
-    }
+    this.removeInvalidCharacters();
   },
   methods: {
-    validateCharacters: function() {
-      // Remove invalid characters to avoid invisible characters
-      this.value = this.value.replace(/([^a-zA-Z0-9!#$%&\'*@+-/=?^_`{|}~.]+)/gi, '');
+    removeInvalidCharacters: function() {
+      if (this.value) {
+        // Remove invalid characters to avoid invisible characters
+        this.value = this.value.replace(/([^a-zA-Z0-9!#$%&\'*@+-/=?^_`{|}~.]+)/gi, '');
+        this.updateValue();
+      }
     }
   },
   watch: {
-    value: function(value) {
-      if (value) {
-        this.validateCharacters();
-      }
+    value: function() {
+      this.removeInvalidCharacters();
     }
   }
 });
