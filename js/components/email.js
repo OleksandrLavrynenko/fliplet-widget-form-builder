@@ -21,5 +21,13 @@ Fliplet.FormBuilder.field('email', {
     }
 
     return rules;
+  },
+  watch: {
+    value: function(value) {
+      if (value) {
+        // Remove invalid characters to avoid invisible characters
+        this.value = value.replace(/([^a-zA-Z0-9!#$%&\'*@+-/=?^_`{|}~.]+)/gi, '');
+      }
+    }
   }
 });
