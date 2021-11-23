@@ -149,10 +149,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
               break;
 
             case 'flEmail':
-              if (fieldData) {
-                // Remove invalid characters to avoid invisible characters
-                fieldData = fieldData.replace(/([^a-zA-Z0-9!#$%&\'*@+-/=?^_`{|}~.]+)/gi, '');
-              }
             case 'flInput':
             case 'flNumber':
             case 'flTelephone':
