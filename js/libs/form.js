@@ -259,7 +259,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
-        templateDefined: data.templateDefined,
+        isTemplateDefined: data.isTemplateDefined,
         fields: getFields(),
         error: null,
         errors: {},
@@ -767,7 +767,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     mounted: function() {
       var $vm = this;
 
-      this.$el.classList.remove('hidden');
+      $(this.$el).removeClass('hidden');
       this.saveProgress = debounce(function() {
         var progress = {};
 

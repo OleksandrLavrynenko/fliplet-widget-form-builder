@@ -4,12 +4,12 @@
       <div class="spinner-overlay">Loading...</div>
     </div>
   </div>
-  <div v-if="!templateDefined" class="sending-form">
+  <div v-if="!isTemplateDefined" class="sending-form">
     <div class="spinner-holder animated">
       <div class="spinner-overlay">Loading...</div>
     </div>
   </div>
-  <div v-else-if="!isConfigured && templateDefined">
+  <div v-else-if="!isConfigured && isTemplateDefined">
     <form class="fl-form placeholder">
       <div class="form-html">
         <div class="form-group clearfix" _type="flTitle">
@@ -45,7 +45,7 @@
       </div>
     </form>
   </div>
-  <form v-else-if="isConfigured && templateDefined" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
+  <form v-else-if="isConfigured && isTemplateDefined" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
     <template v-if="isSending">
       <div class="sending-form">
         <div class="spinner-holder animated">

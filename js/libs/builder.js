@@ -81,7 +81,7 @@ function generateFormDefaults(data) {
     name: '',
     dataSourceId: '',
     templateId: '',
-    templateDefined: Fliplet.Env.get('preview'),
+    isTemplateDefined: Fliplet.Env.get('preview'),
     previewingTemplate: '',
     fields: [],
     offline: true,
@@ -668,7 +668,7 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
-      settings.templateDefined = true;
+      settings.isTemplateDefined = true;
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
