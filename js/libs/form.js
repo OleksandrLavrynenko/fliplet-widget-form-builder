@@ -1026,16 +1026,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
         });
       });
 
-      console.log('m templateDefined', this.templateDefined);
-      console.log('m isConfigured', this.isConfigured);
-    },
-    watch: {
-      templateDefined: function(val) {
-        console.log('w templateDefined', val);
-      },
-      isConfigured: function(val) {
-        console.log('w isConfigured', val);
-      }
     }
   });
 
