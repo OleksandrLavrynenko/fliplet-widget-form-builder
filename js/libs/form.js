@@ -767,6 +767,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
     mounted: function() {
       var $vm = this;
 
+      this.$el.classList.remove('hidden');
       this.saveProgress = debounce(function() {
         var progress = {};
 
