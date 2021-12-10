@@ -85,6 +85,7 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     redirect: false,
+    isLoading: true,
     dataStore: [],
     onSubmit: [],
     template: false,
@@ -630,6 +631,7 @@ new Vue({
       // Add progress
       $('.spinner-holder p').text('Please wait while we save your changes...');
       $(selector).addClass('is-loading');
+      $vm.settings.isLoading = true;
 
       // Save and close
       $vm.save().then(function() {
@@ -654,6 +656,7 @@ new Vue({
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
+        $vm.settings.isLoading = false;
 
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();

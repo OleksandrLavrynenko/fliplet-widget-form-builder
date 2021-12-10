@@ -256,10 +256,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isSent: false,
         isSending: false,
         isSendingMessage: 'Saving data...',
-        isLoading: !!entryId,
+        isLoading: data.isLoading,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
-        // isLoading: data.isLoading,
         fields: getFields(),
         error: null,
         errors: {},
@@ -767,7 +766,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
     mounted: function() {
       var $vm = this;
 
-      $(this.$el).removeClass('hidden');
       this.saveProgress = debounce(function() {
         var progress = {};
 
@@ -780,6 +778,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         localStorage.setItem(progressKey, JSON.stringify(progress));
       }, saveDelay);
 
+      $(this.$el).removeClass('hidden');
       $(selector).removeClass('is-loading');
 
       if (!data.offline) {
