@@ -325,6 +325,7 @@ new Vue({
 
       $vm.settings.name = $vm.settings.displayName;
 
+      console.log('two');
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
@@ -673,6 +674,7 @@ new Vue({
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
+      console.log('three');
       this.fields = this.settings.fields;
 
       if (this.chooseTemplate && preview) {
