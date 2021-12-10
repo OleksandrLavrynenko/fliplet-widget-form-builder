@@ -1,15 +1,36 @@
 <div class="is-loading hidden" data-form-builder-id="{{ id }}">
-  <div class="sending-form hidden">
-    <div class="spinner-holder animated">
-      <div class="spinner-overlay">Loading...</div>
+  <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
+    <template v-if="isSending">
+      <div class="sending-form">
+        <div class="spinner-holder animated">
+          <div class="spinner-overlay">Loading...</div>
+          <p v-html="isSendingMessage"></p>
+        </div>
+      </div>
+    </template>
+    <template v-if="isLoading && !blockScreen">
+      <div class="sending-form">
+        <div class="spinner-holder animated">
+          <div class="spinner-overlay">Loading...</div>
+          <p v-html="isLoadingMessage"></p>
+        </div>
+      </div>
+    </template>
+    <div v-if="!isSent" class="form-html">
+      <div v-if="isOffline" class="text-danger" v-bind:class="{ 'cover-form' : blockScreen }" v-html="isOfflineMessage"></div>
+      <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
+      <template v-for="field in fields">
+        <component :is="field._type" v-bind="field" v-on:_input="onInput" v-on:_error="onError" v-on:_reset="reset" v-if="field.enabled"></component>
+      </template>
+      <div class="callout callout-danger" v-if="error">
+        <p>\{{ error }}</p>
+      </div>
     </div>
-  </div>
-  <div v-if="!isTemplateDefined" class="sending-form">
-    <div class="spinner-holder animated">
-      <div class="spinner-overlay">Loading...</div>
-    </div>
-  </div>
-  <div v-else-if="!isConfigured && isTemplateDefined">
+    <transition name="fade">
+      <div v-if="isSent">{{{ resultHtml }}}</div>
+    </transition>
+  </form>
+  <div v-else>
     <form class="fl-form placeholder">
       <div class="form-html">
         <div class="form-group clearfix" _type="flTitle">
@@ -45,35 +66,4 @@
       </div>
     </form>
   </div>
-  <form v-else-if="isConfigured && isTemplateDefined" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
-    <template v-if="isSending">
-      <div class="sending-form">
-        <div class="spinner-holder animated">
-          <div class="spinner-overlay">Loading...</div>
-          <p v-html="isSendingMessage"></p>
-        </div>
-      </div>
-    </template>
-    <template v-if="isLoading && !blockScreen">
-      <div class="sending-form">
-        <div class="spinner-holder animated">
-          <div class="spinner-overlay">Loading...</div>
-          <p v-html="isLoadingMessage"></p>
-        </div>
-      </div>
-    </template>
-    <div v-if="!isSent" class="form-html">
-      <div v-if="isOffline" class="text-danger" v-bind:class="{ 'cover-form' : blockScreen }" v-html="isOfflineMessage"></div>
-      <div v-if="hasRequiredFields" class="required-info-label">* Required fields</div>
-      <template v-for="field in fields">
-        <component :is="field._type" v-bind="field" v-on:_input="onInput" v-on:_error="onError" v-on:_reset="reset" v-if="field.enabled"></component>
-      </template>
-      <div class="callout callout-danger" v-if="error">
-        <p>\{{ error }}</p>
-      </div>
-    </div>
-    <transition name="fade">
-      <div v-if="isSent">{{{ resultHtml }}}</div>
-    </transition>
-  </form>
 </div>
