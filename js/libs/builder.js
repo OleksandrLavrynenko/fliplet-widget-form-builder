@@ -1048,6 +1048,7 @@ new Vue({
     this.loadTemplates().then(function() {
       if ($vm.organizationTemplates.length || data.fields) {
         $(selector).removeClass('is-loading');
+        $vm.settings.isLoading = false;
       }
 
       $($vm.$refs.templateDescription).tinymce({
@@ -1080,6 +1081,7 @@ new Vue({
             container: 'body'
           });
           $(selector).removeClass('is-loading');
+          $vm.settings.isLoading = false;
         }, 500);
       }
     });

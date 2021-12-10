@@ -1033,6 +1033,19 @@ form hr {
 
 
 /* Loading */
+.loading-message {
+  display: none;
+  padding-top: 25%;
+}
+
+.is-loading .loading-message {
+  display: block;
+}
+
+.is-loading main {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .sending-form {
   position: absolute;

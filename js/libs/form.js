@@ -259,6 +259,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
+        // isLoading: data.isLoading,
         fields: getFields(),
         error: null,
         errors: {},
@@ -1025,7 +1026,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
       });
-
+    },
+    watch: {
+      isLoading: {
+        immediate: true,
+        handler: function(val) {
+          console.log(val);
+        }
+      }
     }
   });
 
