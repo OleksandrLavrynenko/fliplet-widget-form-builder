@@ -450,7 +450,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
             if (inputField.$v.$invalid) {
               if (inputField.$v.passwordConfirmation) {
                 inputField.isValid = !inputField.$v.value.$invalid;
-                inputField.isPasswordsSame = !inputField.$v.value.$invalid && !inputField.$v.passwordConfirmation.$invalid;
+                inputField.isPasswordConfirmed = !inputField.$v.value.$invalid && !inputField.$v.passwordConfirmation.$invalid;
               } else {
                 inputField.isValid = false
               }
