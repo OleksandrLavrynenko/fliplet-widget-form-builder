@@ -324,8 +324,6 @@ new Vue({
       }
 
       $vm.settings.name = $vm.settings.displayName;
-
-      console.log('two');
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
@@ -632,7 +630,6 @@ new Vue({
       // Add progress
       $('.spinner-holder p').text('Please wait while we save your changes...');
       $(selector).addClass('is-loading');
-      $vm.settings.isLoading = true;
 
       // Save and close
       $vm.save().then(function() {
@@ -657,8 +654,6 @@ new Vue({
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
-        $vm.settings.isLoading = false;
-
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
       });
@@ -674,7 +669,6 @@ new Vue({
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
-      console.log('three');
       this.fields = this.settings.fields;
 
       if (this.chooseTemplate && preview) {
@@ -1053,7 +1047,6 @@ new Vue({
     this.loadTemplates().then(function() {
       if ($vm.organizationTemplates.length || data.fields) {
         $(selector).removeClass('is-loading');
-        $vm.settings.isLoading = false;
       }
 
       $($vm.$refs.templateDescription).tinymce({
@@ -1086,7 +1079,6 @@ new Vue({
             container: 'body'
           });
           $(selector).removeClass('is-loading');
-          $vm.settings.isLoading = false;
         }, 500);
       }
     });

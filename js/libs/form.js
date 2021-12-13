@@ -107,7 +107,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
   }
 
   function getFields(isEditMode) {
-    console.log('first');
     var fields = _.compact(JSON.parse(JSON.stringify(data.fields || [])));
     var progress = getProgress();
 
@@ -1026,20 +1025,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
           }
         });
       });
-    },
-    watch: {
-      fields: {
-        immediate: true,
-        handler: function(val) {
-          console.log(val);
-        }
-      },
-      isConfigured: {
-        immediate: true,
-        handler: function(val) {
-          console.log('id: ', data.templateId, val);
-        }
-      }
     }
   });
 
