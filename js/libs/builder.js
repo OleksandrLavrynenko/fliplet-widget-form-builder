@@ -85,7 +85,6 @@ function generateFormDefaults(data) {
     fields: [],
     offline: true,
     redirect: false,
-    isLoading: true,
     dataStore: [],
     onSubmit: [],
     template: false,
@@ -324,6 +323,7 @@ new Vue({
       }
 
       $vm.settings.name = $vm.settings.displayName;
+
       // Cleanup
       this.settings.fields = _.compact(this.fields);
 
@@ -654,6 +654,7 @@ new Vue({
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
+
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
       });
