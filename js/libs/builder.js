@@ -84,6 +84,8 @@ function generateFormDefaults(data) {
     previewingTemplate: '',
     fields: [],
     offline: true,
+    isTemplates: false,
+    isPlaceholder: false,
     redirect: false,
     dataStore: [],
     onSubmit: [],
@@ -621,6 +623,7 @@ new Vue({
           $vm.toChangeTemplate = false;
           $vm.permissionToChange = false;
           $vm.settings.templateId = $vm.newTemplate;
+          $vm.settings.isTemplates = !!$vm.templates.length;
           Fliplet.Studio.emit('widget-save-label-reset');
         }
 
@@ -650,7 +653,7 @@ new Vue({
 
       var $vm = this;
 
-      this.updateFormSettings(templateId, false);
+      templateId && this.updateFormSettings(templateId, false);
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
@@ -667,6 +670,8 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
+      settings.isTemplates = !!formTemplate.id;
+      settings.isPlaceholder = false;
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
@@ -883,6 +888,9 @@ new Vue({
           var blankTemplateId = $vm.systemTemplates[0].id;
 
           $vm.useTemplate(blankTemplateId);
+        } else {
+          $vm.settings.isPlaceholder = true;
+          $vm.useTemplate();
         }
       });
     },

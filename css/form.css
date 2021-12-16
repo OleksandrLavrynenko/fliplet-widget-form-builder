@@ -1034,12 +1034,8 @@ form hr {
 
 /* Loading */
 .loading-message {
-  display: none;
-  padding-top: 25%;
-}
-
-.is-loading .loading-message {
   display: block;
+  padding-top: 25%;
 }
 
 .is-loading main {
