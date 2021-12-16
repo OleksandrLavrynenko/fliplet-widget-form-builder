@@ -1,11 +1,11 @@
 <div class="hidden" data-form-builder-id="{{ id }}">
-  <div v-if="!isTemplate && !isPlaceholder" class="col-sm-12 loading-message">
+  <div v-if="!isConfigured && !isPlaceholder" class="col-sm-12 loading-message">
     <!-- Show loading animation -->
     <div class="spinner-holder animated">
       <div class="spinner-overlay">Loading...</div>
     </div>
   </div>
-  <form v-if="isConfigured && isTemplate" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
+  <form v-if="isConfigured" v-on:submit.prevent="onSubmit" class="fl-form" v-bind:class="{ 'form-offline': isOffline, 'loading-form': isSending || isLoading && !blockScreen }">
     <template v-if="isSending">
       <div class="sending-form">
         <div class="spinner-holder animated">
