@@ -259,7 +259,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
-        isTemplates: data.isTemplates,
+        isTemplate: data.isTemplate,
         isPlaceholder: data.isPlaceholder,
         fields: getFields(),
         error: null,
@@ -780,8 +780,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         localStorage.setItem(progressKey, JSON.stringify(progress));
       }, saveDelay);
 
-      $(this.$el).removeClass('hidden');
-      $(selector).removeClass('is-loading');
+      $(selector).removeClass('hidden');
 
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {

@@ -84,7 +84,7 @@ function generateFormDefaults(data) {
     previewingTemplate: '',
     fields: [],
     offline: true,
-    isTemplates: false,
+    isTemplate: false,
     isPlaceholder: false,
     redirect: false,
     dataStore: [],
@@ -623,7 +623,7 @@ new Vue({
           $vm.toChangeTemplate = false;
           $vm.permissionToChange = false;
           $vm.settings.templateId = $vm.newTemplate;
-          $vm.settings.isTemplates = !!$vm.templates.length;
+          $vm.settings.isTemplate = !!$vm.newTemplate;
           Fliplet.Studio.emit('widget-save-label-reset');
         }
 
@@ -670,7 +670,7 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
-      settings.isTemplates = !!formTemplate.id;
+      settings.isTemplate = !!formTemplate.id;
       settings.isPlaceholder = false;
       settings.name = this.settings.name;
 
