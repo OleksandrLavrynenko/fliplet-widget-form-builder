@@ -651,7 +651,9 @@ new Vue({
 
       var $vm = this;
 
-      templateId && this.updateFormSettings(templateId, false);
+      if (templateId) {
+        this.updateFormSettings(templateId, false);
+      }
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
