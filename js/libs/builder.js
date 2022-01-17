@@ -651,7 +651,9 @@ new Vue({
 
       var $vm = this;
 
-      this.updateFormSettings(templateId, false);
+      if (templateId) {
+        this.updateFormSettings(templateId, false);
+      }
 
       $vm.save(true).then(function onSettingsSaved() {
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
@@ -666,6 +668,7 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
+      settings.isPlaceholder = false;
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
