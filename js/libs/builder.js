@@ -656,6 +656,7 @@ new Vue({
       }
 
       $vm.save(true).then(function onSettingsSaved() {
+        $(selector).removeClass('is-loading');
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
       });
@@ -880,7 +881,6 @@ new Vue({
         $vm.templates = templates.system.concat(templates.organization);
         $vm.systemTemplates = templates.system;
         $vm.organizationTemplates = templates.organization;
-        $(selector).removeClass('is-loading');
 
         if (!$vm.organizationTemplates.length) {
           var blankTemplateId = $vm.systemTemplates[0].id;
@@ -888,8 +888,10 @@ new Vue({
           $vm.settings.isPlaceholder = false;
           $vm.useTemplate(blankTemplateId);
         } else {
-          Fliplet.Widget.save(_.assign(data, { isPlaceholder: true }));
-          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          Fliplet.Widget.save(_.assign(data, { isPlaceholder: true })).then(function() {
+            $(selector).removeClass('is-loading');
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
+          });
         }
       });
     },
