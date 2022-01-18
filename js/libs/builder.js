@@ -656,6 +656,7 @@ new Vue({
       }
 
       $vm.save(true).then(function onSettingsSaved() {
+        console.log(3);
         $(selector).removeClass('is-loading');
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
@@ -882,6 +883,8 @@ new Vue({
         $vm.systemTemplates = templates.system;
         $vm.organizationTemplates = templates.organization;
 
+        console.log($vm.organizationTemplates);
+
         if (!$vm.organizationTemplates.length) {
           var blankTemplateId = $vm.systemTemplates[0].id;
 
@@ -1056,6 +1059,7 @@ new Vue({
 
     this.loadTemplates().then(function() {
       if ($vm.organizationTemplates.length || data.fields) {
+        console.log(1);
         $(selector).removeClass('is-loading');
       }
 
@@ -1088,6 +1092,7 @@ new Vue({
           $($vm.$refs.templateGallery).find('[data-toggle="tooltip"]').tooltip({
             container: 'body'
           });
+          console.log(2);
           $(selector).removeClass('is-loading');
         }, 500);
       }
