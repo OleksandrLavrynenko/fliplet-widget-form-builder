@@ -648,6 +648,7 @@ new Vue({
     useTemplate: function(templateId) {
       Fliplet.Studio.emit('widget-save-label-reset');
       Fliplet.Widget.toggleSaveButton(true);
+      $(selector).removeClass('is-loading');
 
       var $vm = this;
 
@@ -881,7 +882,6 @@ new Vue({
         $vm.templates = templates.system.concat(templates.organization);
         $vm.systemTemplates = templates.system;
         $vm.organizationTemplates = templates.organization;
-        $(selector).removeClass('is-loading');
 
         if (!$vm.organizationTemplates.length) {
           var blankTemplateId = $vm.systemTemplates[0].id;
