@@ -648,13 +648,13 @@ new Vue({
     useTemplate: function(templateId) {
       Fliplet.Studio.emit('widget-save-label-reset');
       Fliplet.Widget.toggleSaveButton(true);
-      $(selector).removeClass('is-loading');
 
       var $vm = this;
 
       this.updateFormSettings(templateId, false);
 
       $vm.save(true).then(function onSettingsSaved() {
+        console.log(1);
         $(selector).removeClass('is-loading');
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
@@ -882,19 +882,15 @@ new Vue({
         $vm.organizationTemplates = templates.organization;
 
         if (!$vm.organizationTemplates.length) {
-          console.log('second');
-
           var blankTemplateId = $vm.systemTemplates[0].id;
 
           $vm.settings.isPlaceholder = false;
           $vm.useTemplate(blankTemplateId);
         } else {
-          console.log('first');
           Fliplet.Widget.save(_.assign(data, { isPlaceholder: true })).then(function() {
+            console.log(2);
             $(selector).removeClass('is-loading');
-            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId()).then(function(e) {
-              console.log(e);
-            });
+            Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
           });
         }
       });
@@ -1060,6 +1056,7 @@ new Vue({
 
     this.loadTemplates().then(function() {
       if ($vm.organizationTemplates.length || data.fields) {
+        console.log(3);
         $(selector).removeClass('is-loading');
       }
 
