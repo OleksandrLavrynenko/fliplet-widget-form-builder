@@ -648,13 +648,10 @@ new Vue({
     useTemplate: function(templateId) {
       Fliplet.Studio.emit('widget-save-label-reset');
       Fliplet.Widget.toggleSaveButton(true);
-      $(selector).removeClass('is-loading');
 
       var $vm = this;
 
-      if (templateId) {
-        this.updateFormSettings(templateId, false);
-      }
+      this.updateFormSettings(templateId, false);
 
       $vm.save(true).then(function onSettingsSaved() {
         $(selector).removeClass('is-loading');
@@ -675,6 +672,8 @@ new Vue({
 
       this.settings = generateFormDefaults(settings);
       this.fields = this.settings.fields;
+
+      $(selector).removeClass('is-loading');
 
       if (this.chooseTemplate && preview) {
         this.settings.previewingTemplate = templateId;
