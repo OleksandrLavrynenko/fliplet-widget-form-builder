@@ -84,6 +84,7 @@ function generateFormDefaults(data) {
     previewingTemplate: '',
     fields: [],
     offline: true,
+    isPlaceholder: false,
     redirect: false,
     dataStore: [],
     onSubmit: [],
@@ -159,10 +160,43 @@ new Vue({
           allow: 'all',
           type: ['select']
         }
-      ]
+      ],
+      newColumns: []
     };
   },
+  computed: {
+    hasRequiredFields: function() {
+      return this.fields.some(function(el) {
+        return !!el.required;
+      });
+    },
+    missingColumns: function() {
+      return this.newColumns.join(', ');
+    },
+    missingColumnsMessage: function() {
+      if (this.newColumns.length === 1) {
+        return '1 column missing in the data source.';
+      }
+
+      if (this.newColumns.length > 1) {
+        return this.newColumns.length + ' columns missing in the data source.';
+      }
+
+      return '';
+    }
+  },
   methods: {
+    generateColumns: function() {
+      var $vm = this;
+
+      Fliplet.DataSources.update(this.settings.dataSourceId, {
+        newColumns: this.newColumns
+      }).then(function() {
+        return $vm.getDataSourceColumns();
+      }).then(function(columns) {
+        $vm.setNewColumns(columns);
+      });
+    },
     onSort: function(event) {
       this.fields.splice(event.newIndex, 0, this.fields.splice(event.oldIndex, 1)[0]);
     },
@@ -295,7 +329,7 @@ new Vue({
       this.settings.fields = _.compact(this.fields);
 
       return Fliplet.Widget.save(this.settings).then(function onSettingsUpdated() {
-        return $vm.updateDataSource();
+        return $vm.updateDataSourceHooks();
       });
     },
     createDefaultBodyTemplate: function(fields) {
@@ -502,7 +536,15 @@ new Vue({
         this.defaultEmailSettingsForCompose.html = this.createDefaultBodyTemplate(this.fields);
       }
     },
-    updateDataSource: function() {
+    getDataSourceColumns: function() {
+      return Fliplet.DataSources.getById(this.settings.dataSourceId, {
+        cache: false,
+        attributes: 'columns'
+      }).then(function(dataSource) {
+        return dataSource.columns || [];
+      });
+    },
+    updateDataSourceHooks: function() {
       var dataSourceId = this.settings.dataSourceId;
       var newColumns = _.chain(this.fields)
         .filter(function(field) {
@@ -525,17 +567,18 @@ new Vue({
         var hooksDeleted;
         var columns = _.uniq(newColumns.concat(ds.columns));
 
-        // remove existing hooks for the operations
+        // remove existing hooks for the operations from the same widget instance
         ds.hooks = _.reject(ds.hooks || [], function(hook) {
-          var result = hook.widgetInstanceId == widgetId && hook.type == 'operations';
+          var remove = hook.widgetInstanceId == widgetId && hook.type == 'operations';
 
-          if (result) {
+          if (remove) {
             hooksDeleted = true;
           }
 
-          return result;
+          return remove;
         });
 
+        // add fields that need to be hashed to data source hooks
         if (fieldsToHash) {
           var payload = {};
 
@@ -551,12 +594,11 @@ new Vue({
           });
         } else if (!hooksDeleted) {
           if (_.isEqual(columns.sort(), ds.columns.sort())) {
-            return Promise.resolve(); // no need to update
+            return; // no need to update
           }
         }
 
         return Fliplet.DataSources.update(dataSourceId, {
-          columns: columns,
           hooks: ds.hooks
         });
       });
@@ -609,11 +651,11 @@ new Vue({
 
       var $vm = this;
 
-      this.updateFormSettings(templateId, false);
+      if (templateId) {
+        this.updateFormSettings(templateId, false);
+      }
 
       $vm.save(true).then(function onSettingsSaved() {
-        $(selector).removeClass('is-loading');
-
         Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         $vm.triggerSave();
       });
@@ -626,6 +668,7 @@ new Vue({
       var settings = formTemplate.settings;
 
       settings.templateId = formTemplate.id;
+      settings.isPlaceholder = false;
       settings.name = this.settings.name;
 
       this.settings = generateFormDefaults(settings);
@@ -685,6 +728,10 @@ new Vue({
           if (event === 'dataSourceSelect') {
             $vm.settings.dataSourceId = dataSource.id;
           }
+
+          $vm.getDataSourceColumns().then(function(columns) {
+            $vm.setNewColumns(columns);
+          });
         }
       });
 
@@ -823,7 +870,7 @@ new Vue({
       return $html.html();
     },
     loadTemplates: function() {
-      if (data.fields) {
+      if (data.fields && data.templateId) {
         return Promise.resolve(); // do not load templates when editing a form as such UI is not shown
       }
 
@@ -833,12 +880,33 @@ new Vue({
         $vm.templates = templates.system.concat(templates.organization);
         $vm.systemTemplates = templates.system;
         $vm.organizationTemplates = templates.organization;
+        $(selector).removeClass('is-loading');
 
         if (!$vm.organizationTemplates.length) {
           var blankTemplateId = $vm.systemTemplates[0].id;
 
+          $vm.settings.isPlaceholder = false;
           $vm.useTemplate(blankTemplateId);
+        } else {
+          Fliplet.Widget.save(_.assign(data, { isPlaceholder: true }));
+          Fliplet.Studio.emit('reload-widget-instance', Fliplet.Widget.getDefaultId());
         }
+      });
+    },
+    setNewColumns: function(columns) {
+      var fieldNames = _.chain(this.fields)
+        .filter(function(field) {
+          return field._submit !== false;
+        })
+        .map('name')
+        .value();
+
+      if (!columns.length) {
+        this.newColumns = fieldNames;
+      }
+
+      this.newColumns = _.filter(fieldNames, function(item) {
+        return !_.includes(columns, item);
       });
     }
   },
@@ -964,13 +1032,19 @@ new Vue({
       if (value) {
         this.editor.setContent(this.settings.description);
       }
-    }
-  },
-  computed: {
-    hasRequiredFields: function() {
-      return this.fields.some(function(el) {
-        return !!el.required;
-      });
+    },
+    fields: {
+      deep: true,
+      immediate: true,
+      handler: function() {
+        if (this.settings.dataSourceId) {
+          var $vm = this;
+
+          this.getDataSourceColumns().then(function(columns) {
+            $vm.setNewColumns(columns);
+          });
+        }
+      }
     }
   },
   created: function() {

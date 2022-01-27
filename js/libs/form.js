@@ -211,26 +211,6 @@ Fliplet.Widget.instance('form-builder', function(data) {
               }
               break;
 
-            case 'flCheckbox':
-              if (fieldData.length > 0) {
-                var inOptions = [];
-
-                fieldData.forEach(function (element) {
-                  var match = _.find(field.options, function (option) {
-                    return option.label === element || option.id === element;
-                  });
-
-                  if (match) {
-                    inOptions.push(match);
-                  }
-                });
-
-                field.value = inOptions.length ? _.uniqWith(fieldData, _.isEqual) : [];
-              } else {
-                field.value = [];
-              }
-              break;
-
             case 'flStarRating':
               field.options = _.times(5, function(i) {
                 return {
@@ -238,15 +218,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
                 };
               });
 
-            case 'flRadio':
-              // Work only if passed value is a string
-              // Altered check to support old version of the form builder and if a user provides data as ID not a Label it will work correctly
-              var match = _.find(field.options, function (option) {
-                return option.label === fieldData || option.id === fieldData;
-              });
-
-              field.value = match ? fieldData : '';
-              break;
+            case 'flCheckbox': // There is no validation and value assignment as there is no access to checkbox options. This is implemented in the checkbox component.
+            case 'flRadio': // There is no validation and value assignment as there is no access to radio options. This is implemented in the radio component.
 
             default:
               field.value = fieldData;
@@ -286,6 +259,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         isLoading: !!entryId,
         isLoadingMessage: 'Retrieving data...',
         isConfigured: !!data.templateId,
+        isPlaceholder: data.isPlaceholder,
         fields: getFields(),
         error: null,
         errors: {},
@@ -470,13 +444,18 @@ Fliplet.Widget.instance('form-builder', function(data) {
         var invalidFields = [];
 
         $vm.$children.forEach(function (inputField) {
-
           // checks if component have vuelidate validation object
           if (inputField.$v) {
             inputField.$v.$touch();
 
             if (inputField.$v.$invalid) {
-              $(inputField.$el).addClass('has-error');
+              if (inputField.$v.passwordConfirmation) {
+                inputField.isValid = !inputField.$v.value.$invalid;
+                inputField.isPasswordConfirmed = !inputField.$v.value.$invalid && !inputField.$v.passwordConfirmation.$invalid;
+              } else {
+                inputField.isValid = false
+              }
+              
               invalidFields.push(inputField);
               $vm.isFormValid = false;
             }
@@ -596,6 +575,9 @@ Fliplet.Widget.instance('form-builder', function(data) {
                   value = null;
                 }
               }
+              if (type === 'flEmail') {
+                value = value.toLowerCase();
+              }
               // Other inputs
               appendField(field.name, value);
             }
@@ -687,6 +669,11 @@ Fliplet.Widget.instance('form-builder', function(data) {
             }
 
             $vm.isSent = true;
+            $vm.fields.forEach(function(field) {
+              if (field._type === 'flPassword' && field.passwordConfirmation) {
+                field.passwordConfirmation = '';
+              }
+            });
             $vm.isSending = false;
             $vm.reset(false);
             /**
@@ -802,7 +789,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
         localStorage.setItem(progressKey, JSON.stringify(progress));
       }, saveDelay);
 
-      $(selector).removeClass('is-loading');
+      $(selector).removeClass('hidden');
 
       if (!data.offline) {
         Fliplet.Navigator.onOnline(function() {
