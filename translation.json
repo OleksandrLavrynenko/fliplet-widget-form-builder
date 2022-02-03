@@ -2,6 +2,8 @@
   "widgets": {
     "form": {
       "loading": "Loading...",
+      "savingData": "Saving data...",
+      "retrievingData": "Retrieving data...",
       "sending": {
         "requiredFields": "* Required fields"
       },
@@ -72,6 +74,12 @@
           "option2": "Option 2"
         }
       },
+      "signature": {
+        "actions": {
+          "clear": "Clear",
+          "edit": "Edit"
+        }
+      },
       "telephone": {
         "instruction": "Phone number can only contain <b>; , . ( ) - + SPACE * #</b> and numbers."
       },
@@ -83,6 +91,7 @@
       },
       "errors": {
         "required": "Field is required.",
+        "fieldsNotFilled": "Please complete all required fields.",
         "offlineDataError": "The data can only be updated when connected to the internet.",
         "offlineFormError": "This form can only be submitted when connected to the internet."
       }

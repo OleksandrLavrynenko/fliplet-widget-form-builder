@@ -249,15 +249,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var changeListeners = {};
 
   var $form = new Vue({
+    i18n: Fliplet.Locale.plugins.vue(),
     el: $(selector)[0],
     data: function() {
       return {
         isFormValid: false,
         isSent: false,
         isSending: false,
-        isSendingMessage: 'Saving data...',
+        isSendingMessage: T('widgets.form.savingData'),
         isLoading: !!entryId,
-        isLoadingMessage: 'Retrieving data...',
+        isLoadingMessage: T('widgets.form.retrievingData'),
         isConfigured: !!data.templateId,
         isPlaceholder: data.isPlaceholder,
         fields: getFields(),
@@ -470,7 +471,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
          * @returns {void} shows a toast message to users
          */
         function showValidationMessage(errorMessage) {
-          errorMessage = errorMessage || 'Please complete all required fields.';
+          errorMessage = errorMessage || T('widgets.form.errors.fieldsNotFilled');
           Fliplet.UI.Toast(errorMessage);
         }
 
