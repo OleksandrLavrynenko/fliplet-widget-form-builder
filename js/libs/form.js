@@ -249,15 +249,16 @@ Fliplet.Widget.instance('form-builder', function(data) {
   var changeListeners = {};
 
   var $form = new Vue({
+    i18n: Fliplet.Locale.plugins.vue(),
     el: $(selector)[0],
     data: function() {
       return {
         isFormValid: false,
         isSent: false,
         isSending: false,
-        isSendingMessage: 'Saving data...',
+        isSendingMessage: T('widgets.form.savingData'),
         isLoading: !!entryId,
-        isLoadingMessage: 'Retrieving data...',
+        isLoadingMessage: T('widgets.form.retrievingData'),
         isConfigured: !!data.templateId,
         isPlaceholder: data.isPlaceholder,
         fields: getFields(),
@@ -470,7 +471,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
          * @returns {void} shows a toast message to users
          */
         function showValidationMessage(errorMessage) {
-          errorMessage = errorMessage || 'Please complete all required fields.';
+          errorMessage = errorMessage || T('widgets.form.errors.fieldsNotFilled');
           Fliplet.UI.Toast(errorMessage);
         }
 
@@ -800,8 +801,8 @@ Fliplet.Widget.instance('form-builder', function(data) {
         Fliplet.Navigator.onOffline(function() {
           $vm.isOffline = true;
           $vm.isOfflineMessage = data.dataStore && data.dataStore.indexOf('editDataSource') > -1 ?
-            'The data can only be updated when connected to the internet.' :
-            'This form can only be submitted when connected to the internet.';
+            T('widgets.form.errors.offlineDataError') :
+            T('widgets.form.errors.offlineFormError');
 
           if ($vm.isEditMode && $vm.isLoading && $vm.isOffline) {
             $vm.blockScreen = true;
