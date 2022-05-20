@@ -456,7 +456,7 @@ Fliplet.Widget.instance('form-builder', function(data) {
               } else {
                 inputField.isValid = false
               }
-              
+
               invalidFields.push(inputField);
               $vm.isFormValid = false;
             }
@@ -891,6 +891,14 @@ Fliplet.Widget.instance('form-builder', function(data) {
 
                 if (field._type === 'flCheckbox') {
                   data = validateCheckboxValue(data, this.instance.options);
+                }
+
+                if (field._type === 'flDate') {
+                  data = data && moment(data).isValid() ? data : '';
+                }
+
+                if (field._type === 'flTime') {
+                  data = /^([01]\d|2[0-3]):?([0-5]\d)$/.test(data) ? data : '';
                 }
 
                 if (typeof data === 'function') {

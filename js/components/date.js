@@ -83,9 +83,7 @@ Fliplet.FormBuilder.field('date', {
         return;
       }
 
-      if (this.datePicker) {
-        this.datePicker.set(val, false);
-      }
+      this.datePicker.set(val, false);
 
       if (this.isPreview && this.$v.value.$invalid) {
         this.highlightError();

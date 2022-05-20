@@ -23,8 +23,10 @@ Fliplet.FormBuilder.field('time', {
   },
   data: function() {
     return {
+      timePicker: null,
       isInputFocused: false,
-      isPreview: Fliplet.Env.get('preview')
+      isPreview: Fliplet.Env.get('preview'),
+      now: moment().format('HH:mm')
     };
   },
   validations: function() {
@@ -40,19 +42,31 @@ Fliplet.FormBuilder.field('time', {
   },
   methods: {
     initTimePicker: function() {
+      if (this.timePicker || !this.$refs.timePicker) {
+        return;
+      }
+
       var $vm = this;
 
-      this.timepicker = $($vm.$refs.timepicker).timeEntry()
-        .on('change', function(event) {
-          $vm.value = event.target.value;
-        });
+      this.timePicker = Fliplet.UI.TimePicker(this.$refs.timePicker, {
+        required: this.required || this.autofill === 'always',
+        value: this.value
+      });
 
-      this.timepicker.timeEntry('setTime', $vm.value);
+      this.timePicker.change(function(value) {
+        $vm.value = value;
+        $vm.updateValue();
+      });
     }
   },
   computed: {
     isApplyCurrentDateField: function() {
       return this.autofill === 'always' || this.autofill === 'default';
+    },
+    readonlyValue: function() {
+      return /^([01]\d|2[0-3]):?([0-5]\d)$/.test(this.value)
+        ? TD(this.value, { format: 'LT' })
+        : '';
     }
   },
   beforeUpdate: function() {
@@ -67,12 +81,15 @@ Fliplet.FormBuilder.field('time', {
     }
   },
   mounted: function() {
-    if (Fliplet.Env.is('web') && (this.browserSupport('IE11') || this.browserSupport('Safari'))) {
-      this.initTimePicker();
-    }
+    this.initTimePicker();
 
     if (this.defaultValueSource !== 'default') {
       this.setValueFromDefaultSettings({ source: this.defaultValueSource, key: this.defaultValueKey });
+    }
+
+    if (!this.value || this.autofill === 'always') {
+      this.value = this.now;
+      this.empty = false;
     }
 
     if (this.autofill === 'empty') {
@@ -81,25 +98,24 @@ Fliplet.FormBuilder.field('time', {
       return;
     }
 
-    if (!this.value || this.autofill === 'always') {
-      this.value = moment().format('HH:mm');
-      this.empty = false;
-    }
-
     this.$emit('_input', this.name, this.value);
     this.$v.$reset();
   },
   watch: {
     value: function(val) {
-      if (this.timepicker) {
-        this.timepicker.timeEntry('setTime', val);
+      if (this.autofill === 'always' && val === '') {
+        this.value = this.now;
+
+        return;
       }
+
+      this.timePicker.set(val, false);
 
       if (this.isPreview && this.$v.value.$invalid) {
         this.highlightError();
       }
 
-      this.$emit('_input', this.name, val);
+      this.$emit('_input', this.name, val, false, true);
     }
   }
 });
