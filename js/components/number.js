@@ -1,4 +1,5 @@
 Fliplet.FormBuilder.field('number', {
+  i18n: Fliplet.Locale.plugins.vue(),
   name: 'Number input',
   category: 'Text inputs',
   props: {
