@@ -1,7 +1,7 @@
 /* global loadImage, addThumbnailToCanvas */
 
 Fliplet.FormBuilder.field('file', {
-  i18n: Fliplet.Locale.plugins.vue(),
+  i18n: window.VueI18Next,
   name: 'Attach a file',
   category: 'Files',
   props: {

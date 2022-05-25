@@ -1,7 +1,7 @@
 /* global Camera, addThumbnailToCanvas, loadImage */
 
 Fliplet.FormBuilder.field('image', {
-  i18n: Fliplet.Locale.plugins.vue(),
+  i18n: window.VueI18Next,
   name: 'Image upload',
   category: 'Files',
   props: {
